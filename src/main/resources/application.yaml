@@ -33,26 +33,26 @@ spring:
             timeout: 5000
             writetimeout: 5000
 
-  security:
-    config:
-      prefix: ${JWT_PREFIX}
-      key: ${JWT_KEY}
-      expiration: 3600000
+security:
+  config:
+    prefix: ${JWT_PREFIX}
+    key: ${JWT_KEY}
+    expiration: 3600000
 
-  jwt:
-    secret: ${JWT_SECRET}
-    expiration: ${JWT_EXPIRATION}
+jwt:
+  secret: ${JWT_SECRET}
+  expiration: ${JWT_EXPIRATION}
 
-  logging:
-    level:
-      org:
-        springframework:
-          security: DEBUG
-          web: DEBUG
+logging:
+  level:
+    org:
+      springframework:
+        security: DEBUG
+        web: DEBUG
 
-  server:
-    port: ${PORT:80}
-    address: 0.0.0.0
+server:
+  port: ${PORT:80}
+  address: 0.0.0.0
 
-  photo-service:
-    url: ${MS_URL_IMAGEM}
+photo-service:
+  url: ${MS_URL_IMAGEM}
