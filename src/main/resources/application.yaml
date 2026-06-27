@@ -11,27 +11,27 @@ spring:
       max-lifetime: 300000
       keepalive-time: 60000
 
-    jpa:
-      hibernate:
-        ddl-auto: update
-      show-sql: true
-      database-platform: org.hibernate.dialect.MySQLDialect
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    database-platform: org.hibernate.dialect.MySQLDialect
 
-    mail:
-      host: ${SMTP_HOST}
-      port: ${SMTP_PORT}
-      username: ${SMTP_USER}
-      password: ${SMTP_PASS}
-      protocol: smtp
-      properties:
-        mail:
-          smtp:
-            auth: true
-            starttls:
-              enable: true
-            connectiontimeout: 5000
-            timeout: 5000
-            writetimeout: 5000
+  mail:
+    host: ${SMTP_HOST}
+    port: ${SMTP_PORT}
+    username: ${SMTP_USER}
+    password: ${SMTP_PASS}
+    protocol: smtp
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+          connectiontimeout: 5000
+          timeout: 5000
+          writetimeout: 5000
 
 security:
   config:
