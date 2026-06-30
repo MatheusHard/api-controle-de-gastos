@@ -25,9 +25,10 @@ public class GastoDTO {
     private String descricao;
     private User user;
     private Boolean deletado = false;
+
     ///Filters
-    private LocalDate dataInicial;
-    private LocalDate dataFinal;
+    private LocalDateTime dataInicial;
+    private LocalDateTime dataFinal;
     private BigDecimal valor;
     private AgendaDePagamento AgendaDePagamento;
     private StatusPagamentoEnum statusPagamento;

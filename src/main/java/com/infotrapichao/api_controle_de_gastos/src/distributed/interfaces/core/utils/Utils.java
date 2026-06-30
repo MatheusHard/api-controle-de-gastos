@@ -1,11 +1,16 @@
 package com.infotrapichao.api_controle_de_gastos.src.distributed.interfaces.core.utils;
 
+import com.infotrapichao.api_controle_de_gastos.src.distributed.interfaces.enums.StatusPagamentoEnum;
+
 import java.io.File;
 import java.io.FileOutputStream;
+import java.math.BigDecimal;
 import java.nio.charset.StandardCharsets;
+import java.text.NumberFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Base64;
+import java.util.Locale;
 
 public class Utils {
     public static String decodeBase64(String input) {
@@ -54,4 +59,21 @@ public class Utils {
         }
     }
 
+    private static final Locale LOCALE_BR = new Locale("pt", "BR");
+
+    public static String convertValor(BigDecimal valor) {
+
+        if (valor == null)  return "R$ 0,00";
+        NumberFormat formatador = NumberFormat.getCurrencyInstance(LOCALE_BR);
+        return formatador.format(valor);
+    }
+    // calcular total dos valores
+    public static String convertStatusPagamento(StatusPagamentoEnum status) {
+        if (status == null)  return "";
+        return switch (status) {
+            case NAO_PAGO -> "Não Pago";
+            case PAGO -> "Pago";
+            case VENCIDO -> "Vencido";
+        };
+    }
 }
