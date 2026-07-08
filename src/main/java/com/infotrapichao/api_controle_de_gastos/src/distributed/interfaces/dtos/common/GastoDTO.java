@@ -30,7 +30,7 @@ public class GastoDTO {
     private LocalDateTime dataInicial;
     private LocalDateTime dataFinal;
     private BigDecimal valor;
-    private AgendaDePagamento AgendaDePagamento;
+    private AgendaDePagamento agendaDePagamento;
     private StatusPagamentoEnum statusPagamento;
     private Boolean pago = false;
     private String photoName;

@@ -3,7 +3,14 @@ package com.infotrapichao.api_controle_de_gastos.src.distributed.interfaces.cont
 import com.infotrapichao.api_controle_de_gastos.src.application.contracts.common.IGastoApplication;
 import com.infotrapichao.api_controle_de_gastos.src.distributed.interfaces.dtos.common.GastoDTO;
 import com.infotrapichao.api_controle_de_gastos.src.distributed.interfaces.mappers.GastoMapper;
+import com.lowagie.text.*;
+import com.lowagie.text.pdf.PdfPCell;
+import com.lowagie.text.pdf.PdfPTable;
+import com.lowagie.text.pdf.PdfWriter;
 import org.apache.poi.ss.usermodel.*;
+import com.lowagie.text.Font;
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.core.io.ClassPathResource;
@@ -104,6 +111,104 @@ public class RelatorioController {
         } catch (Exception ex) {
             throw new RuntimeException(ex);
         }
+    }
+
+    @GetMapping("/gastos/pdf")
+    public ResponseEntity<byte[]> gerarPdf(@ModelAttribute GastoDTO filter) {
+
+        try {
+
+            var gastos = _gastoApplication.findAllByFilter(filter);
+            List<GastoDTO> lista = GastoMapper.toAgendamentoDTOList(gastos);
+
+            BigDecimal totalValor = lista.stream()
+                    .map(GastoDTO::getValor)
+                    .reduce(BigDecimal.ZERO, BigDecimal::add);
+
+            ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+
+            Document document = new Document(PageSize.A4);
+            PdfWriter.getInstance(document, outputStream);
+
+            document.open();
+
+            // Título
+            Font titulo = new Font(Font.HELVETICA, 18, Font.BOLD);
+            Paragraph paragraph = new Paragraph("Relatório de Gastos", titulo);
+            paragraph.setAlignment(Element.ALIGN_CENTER);
+            paragraph.setSpacingAfter(20);
+            document.add(paragraph);
+
+            // Tabela
+            PdfPTable table = new PdfPTable(4);
+            table.setWidthPercentage(100);
+            table.setSpacingBefore(10);
+            table.setWidths(new float[]{4, 2, 2, 2});
+
+            Font headerFont = new Font(Font.HELVETICA, 12, Font.BOLD);
+
+            addHeader(table, "Descrição", headerFont);
+            addHeader(table, "Vencimento", headerFont);
+            addHeader(table, "Valor", headerFont);
+            addHeader(table, "Status", headerFont);
+
+            Font bodyFont = new com.lowagie.text.Font(com.lowagie.text.Font.HELVETICA, 11);
+
+            for (GastoDTO gasto : lista) {
+
+                table.addCell(new PdfPCell(new Phrase(
+                        gasto.getDescricao(),
+                        bodyFont)));
+
+                table.addCell(new PdfPCell(new Phrase(
+                        gasto.getVencimento() != null
+                                ? getDataFormatada(gasto.getVencimento(), false)
+                                : "",
+                        bodyFont)));
+
+                table.addCell(new PdfPCell(new Phrase(
+                        convertValor(gasto.getValor()),
+                        bodyFont)));
+
+                table.addCell(new PdfPCell(new Phrase(
+                        gasto.getStatusPagamento() != null
+                                ? convertStatusPagamento(gasto.getStatusPagamento())
+                                : "",
+                        bodyFont)));
+            }
+
+            PdfPCell totalTitulo = new PdfPCell(new Phrase("TOTAL", headerFont));
+            totalTitulo.setColspan(2);
+            table.addCell(totalTitulo);
+
+            table.addCell(new PdfPCell(new Phrase(
+                    convertValor(totalValor),
+                    headerFont)));
+
+            table.addCell(new PdfPCell(new Phrase("")));
+
+            document.add(table);
+
+            document.close();
+
+            return ResponseEntity.ok()
+                    .header(
+                            HttpHeaders.CONTENT_DISPOSITION,
+                            "attachment; filename=relatorio_gastos.pdf")
+                    .contentType(MediaType.APPLICATION_PDF)
+                    .body(outputStream.toByteArray());
+
+        } catch (Exception ex) {
+            throw new RuntimeException(ex);
+        }
+    }
+    private void addHeader(PdfPTable table, String texto, com.lowagie.text.Font font) {
+        PdfPCell cell = new PdfPCell(new Phrase(texto, font));
+        cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+        cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+        cell.setPadding(8);
+
+        table.addCell(cell);
     }
 }
 
