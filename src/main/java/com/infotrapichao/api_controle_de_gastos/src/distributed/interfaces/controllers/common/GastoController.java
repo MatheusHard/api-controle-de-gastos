@@ -86,8 +86,8 @@ public class GastoController {
         return ResponseEntity.ok(gasto);
     }
 
-    @PostMapping("/filtrar")
-    public ResponseEntity<List<GastoDTO>> filtrar(@RequestBody GastoDTO filter) {
+    @GetMapping("/filtrar")
+    public ResponseEntity<List<GastoDTO>> filtrar(@ModelAttribute GastoDTO filter) {
         var gastos = _gastoApplication.findAllByFilter(filter);
         var lista = GastoMapper.toAgendamentoDTOList(gastos);
         return ResponseEntity.ok(lista);

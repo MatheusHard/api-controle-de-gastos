@@ -16,8 +16,8 @@ public class DashBoardController {
         this._gastoApplication = gastoApplication;
     }
 
-    @PostMapping("/totais-mensais")
-    public ResponseEntity<TotaisMensaisResponse> buscar(@RequestBody GastoDTO filter) {
+    @GetMapping("/totais-mensais")
+    public ResponseEntity<TotaisMensaisResponse> buscar(@ModelAttribute GastoDTO filter) {
         var gastos = _gastoApplication.findTotaisPorMes(filter);
         return ResponseEntity.ok(gastos);
     }
