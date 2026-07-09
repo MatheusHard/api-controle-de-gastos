@@ -2,6 +2,7 @@ package com.infotrapichao.api_controle_de_gastos.src.distributed.interfaces.cont
 
 import com.infotrapichao.api_controle_de_gastos.src.application.contracts.common.IAgendaDePagamentoApplication;
 import com.infotrapichao.api_controle_de_gastos.src.distributed.interfaces.dtos.common.AgendaDePagamentoDTO;
+import com.infotrapichao.api_controle_de_gastos.src.distributed.interfaces.dtos.common.request.AgendaDePagamentoRequestDTO;
 import com.infotrapichao.api_controle_de_gastos.src.distributed.interfaces.mappers.AgendaDePagamentoMapper;
 import com.infotrapichao.api_controle_de_gastos.src.domain.models.common.AgendaDePagamento;
 import org.springframework.http.ResponseEntity;
@@ -60,8 +61,9 @@ public class AgendaDePagamentoController {
     }
     
     @GetMapping("/findOne")
-    public ResponseEntity<AgendaDePagamentoDTO> findOne(@ModelAttribute AgendaDePagamentoDTO filter) {
-        var agendasDePagamento = _agendaDePagamentoApplication.findAllByFilter(filter);
+    public ResponseEntity<AgendaDePagamentoDTO> findOne(@ModelAttribute AgendaDePagamentoRequestDTO filter) {
+        AgendaDePagamentoDTO dto = AgendaDePagamentoMapper.toAgendaDePagamentoDTO(filter);
+        var agendasDePagamento = _agendaDePagamentoApplication.findAllByFilter(dto);
         AgendaDePagamento agendaDePagamento = null;
         if(!agendasDePagamento.isEmpty()){
             agendaDePagamento = agendasDePagamento.getFirst();

@@ -1,6 +1,7 @@
 package com.infotrapichao.api_controle_de_gastos.src.distributed.interfaces.mappers;
 
 import com.infotrapichao.api_controle_de_gastos.src.distributed.interfaces.dtos.common.AgendaDePagamentoDTO;
+import com.infotrapichao.api_controle_de_gastos.src.distributed.interfaces.dtos.common.request.AgendaDePagamentoRequestDTO;
 import com.infotrapichao.api_controle_de_gastos.src.domain.models.common.AgendaDePagamento;
 
 import java.util.ArrayList;
@@ -15,6 +16,11 @@ public class AgendaDePagamentoMapper {
                 null);
     }
 
+    public static AgendaDePagamentoDTO toAgendaDePagamentoDTO(AgendaDePagamentoRequestDTO agendaDePagamento) {
+        return new AgendaDePagamentoDTO(agendaDePagamento.getId(), agendaDePagamento.getCreatedAt(),
+                agendaDePagamento.getUpdatedAt(),
+                null, agendaDePagamento.getDeletado(), List.of(), agendaDePagamento.getDataInicial(),agendaDePagamento.getDataFinal());
+    }
     public static AgendaDePagamento toAgendaDePagamento(AgendaDePagamentoDTO agendaDePagamentoDTO) {
         return new AgendaDePagamento(agendaDePagamentoDTO.getId(), agendaDePagamentoDTO.getCreatedAt(),
                 agendaDePagamentoDTO.getUpdatedAt(),
