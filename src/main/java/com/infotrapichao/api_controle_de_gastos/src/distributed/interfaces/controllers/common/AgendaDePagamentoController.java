@@ -59,11 +59,10 @@ public class AgendaDePagamentoController {
         var agendaDePagamento = _agendaDePagamentoApplication.findById(id);
         return ResponseEntity.ok(agendaDePagamento);
     }
-    
-    @GetMapping("/findOne")
-    public ResponseEntity<AgendaDePagamentoDTO> findOne(@ModelAttribute AgendaDePagamentoRequestDTO filter) {
-        AgendaDePagamentoDTO dto = AgendaDePagamentoMapper.toAgendaDePagamentoDTO(filter);
-        var agendasDePagamento = _agendaDePagamentoApplication.findAllByFilter(dto);
+
+    @PostMapping("/findOne")
+    public ResponseEntity<AgendaDePagamentoDTO> findOne(@RequestBody AgendaDePagamentoDTO filter) {
+        var agendasDePagamento = _agendaDePagamentoApplication.findAllByFilter(filter);
         AgendaDePagamento agendaDePagamento = null;
         if(!agendasDePagamento.isEmpty()){
             agendaDePagamento = agendasDePagamento.getFirst();
@@ -71,6 +70,7 @@ public class AgendaDePagamentoController {
         var fatura = agendaDePagamento != null ? AgendaDePagamentoMapper.toAgendaDePagamentoDTO(agendaDePagamento): null;
         return ResponseEntity.ok(fatura);
     }
+    
     @GetMapping("/filtrar")
     public ResponseEntity<List<AgendaDePagamentoDTO>> filtrar(@ModelAttribute AgendaDePagamentoDTO filter) {
         var agendasDePagamento = _agendaDePagamentoApplication.findAllByFilter(filter);
