@@ -56,6 +56,10 @@ public class GastoSpecification {
             if (filtro.getAgendaDePagamento() != null && filtro.getAgendaDePagamento().getId() != null && filtro.getAgendaDePagamento().getId() != 0) {
                 predicates.add(cb.equal(root.get("agendaDePagamento").get("id"), filtro.getAgendaDePagamento().getId()));
             }
+            // Status do Pagamento
+            if (filtro.getStatusPagamento() != null) {
+                predicates.add(cb.equal(root.get("statusPagamento"), filtro.getStatusPagamento()));
+            }
             // Ordenação por updatedAt DESC
             query.orderBy(cb.desc(root.get("updatedAt")));
 
