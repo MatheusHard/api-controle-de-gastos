@@ -2,6 +2,7 @@ package com.infotrapichao.api_controle_de_gastos.src.distributed.interfaces.cont
 
 import com.infotrapichao.api_controle_de_gastos.src.application.contracts.common.IGastoApplication;
 import com.infotrapichao.api_controle_de_gastos.src.distributed.interfaces.dtos.common.GastoDTO;
+import com.infotrapichao.api_controle_de_gastos.src.distributed.interfaces.dtos.request.GastoRequestDTO;
 import com.infotrapichao.api_controle_de_gastos.src.distributed.interfaces.mappers.GastoMapper;
 import com.lowagie.text.*;
 import com.lowagie.text.pdf.PdfPCell;
@@ -37,11 +38,11 @@ public class RelatorioController {
     }
 
     @GetMapping("/gastos/excel")
-    public ResponseEntity<byte[]> gerarExcel(@ModelAttribute GastoDTO filter) {
+    public ResponseEntity<byte[]> gerarExcel(@ModelAttribute GastoRequestDTO filter) {
 
         try {
-
-            var gastos = _gastoApplication.findAllByFilter(filter);
+            GastoDTO dto = GastoMapper.toGastoDTO(filter);
+            var gastos = _gastoApplication.findAllByFilter(dto);
             List<GastoDTO> lista = GastoMapper.toAgendamentoDTOList(gastos);
 
             InputStream template = new ClassPathResource("templates/relatorio_gastos.xlsx").getInputStream();
@@ -114,11 +115,11 @@ public class RelatorioController {
     }
 
     @GetMapping("/gastos/pdf")
-    public ResponseEntity<byte[]> gerarPdf(@ModelAttribute GastoDTO filter) {
+    public ResponseEntity<byte[]> gerarPdf(@ModelAttribute GastoRequestDTO filter) {
 
         try {
-
-            var gastos = _gastoApplication.findAllByFilter(filter);
+            GastoDTO dto = GastoMapper.toGastoDTO(filter);
+            var gastos = _gastoApplication.findAllByFilter(dto);
             List<GastoDTO> lista = GastoMapper.toAgendamentoDTOList(gastos);
 
             BigDecimal totalValor = lista.stream()

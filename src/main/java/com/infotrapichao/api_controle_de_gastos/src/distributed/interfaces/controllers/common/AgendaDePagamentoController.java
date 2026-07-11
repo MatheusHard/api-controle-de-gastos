@@ -2,7 +2,10 @@ package com.infotrapichao.api_controle_de_gastos.src.distributed.interfaces.cont
 
 import com.infotrapichao.api_controle_de_gastos.src.application.contracts.common.IAgendaDePagamentoApplication;
 import com.infotrapichao.api_controle_de_gastos.src.distributed.interfaces.dtos.common.AgendaDePagamentoDTO;
+import com.infotrapichao.api_controle_de_gastos.src.distributed.interfaces.dtos.common.GastoDTO;
+import com.infotrapichao.api_controle_de_gastos.src.distributed.interfaces.dtos.request.AgendaDePagamentoRequestDTO;
 import com.infotrapichao.api_controle_de_gastos.src.distributed.interfaces.mappers.AgendaDePagamentoMapper;
+import com.infotrapichao.api_controle_de_gastos.src.distributed.interfaces.mappers.GastoMapper;
 import com.infotrapichao.api_controle_de_gastos.src.domain.models.common.AgendaDePagamento;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -58,9 +61,11 @@ public class AgendaDePagamentoController {
         var agendaDePagamento = _agendaDePagamentoApplication.findById(id);
         return ResponseEntity.ok(agendaDePagamento);
     }
-    @PostMapping("/findOne")
-    public ResponseEntity<AgendaDePagamentoDTO> findOne(@RequestBody AgendaDePagamentoDTO filter) {
-        var agendasDePagamento = _agendaDePagamentoApplication.findAllByFilter(filter);
+    @GetMapping("/findOne")
+    public ResponseEntity<AgendaDePagamentoDTO> findOne(@ModelAttribute AgendaDePagamentoRequestDTO filter) {
+
+        AgendaDePagamentoDTO dto = AgendaDePagamentoMapper.toAgendaDePagamentoDTO(filter);
+        var agendasDePagamento = _agendaDePagamentoApplication.findAllByFilter(dto);
         AgendaDePagamento agendaDePagamento = null;
         if(!agendasDePagamento.isEmpty()){
             agendaDePagamento = agendasDePagamento.getFirst();
@@ -69,8 +74,10 @@ public class AgendaDePagamentoController {
         return ResponseEntity.ok(fatura);
     }
     @PostMapping("/filtrar")
-    public ResponseEntity<List<AgendaDePagamentoDTO>> filtrar(@RequestBody AgendaDePagamentoDTO filter) {
-        var agendasDePagamento = _agendaDePagamentoApplication.findAllByFilter(filter);
+    public ResponseEntity<List<AgendaDePagamentoDTO>> filtrar(@ModelAttribute AgendaDePagamentoRequestDTO filter) {
+
+        AgendaDePagamentoDTO dto = AgendaDePagamentoMapper.toAgendaDePagamentoDTO(filter);
+        var agendasDePagamento = _agendaDePagamentoApplication.findAllByFilter(dto);
         var lista = AgendaDePagamentoMapper.toAgendamentoDTOList(agendasDePagamento);
         return ResponseEntity.ok(lista);
     }
