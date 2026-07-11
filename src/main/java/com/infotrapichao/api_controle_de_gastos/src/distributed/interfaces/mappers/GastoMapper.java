@@ -3,6 +3,8 @@ package com.infotrapichao.api_controle_de_gastos.src.distributed.interfaces.mapp
 
 import com.infotrapichao.api_controle_de_gastos.src.distributed.interfaces.dtos.common.GastoDTO;
 import com.infotrapichao.api_controle_de_gastos.src.distributed.interfaces.dtos.request.DashBoardResquestDTO;
+import com.infotrapichao.api_controle_de_gastos.src.distributed.interfaces.dtos.request.GastoRequestDTO;
+import com.infotrapichao.api_controle_de_gastos.src.domain.models.common.AgendaDePagamento;
 import com.infotrapichao.api_controle_de_gastos.src.domain.models.common.Gasto;
 import com.infotrapichao.api_controle_de_gastos.src.domain.models.security.User;
 
@@ -14,6 +16,17 @@ public static GastoDTO toGastoDTO(Gasto gasto) {
     return new GastoDTO(gasto.getId(), gasto.getCreatedAt(), gasto.getUpdatedAt(),
             gasto.getVencimento(), gasto.getDescricao(), gasto.getUser(),  gasto.isDeletado(), null, null, gasto.getValor(), gasto.getAgendaDePagamento(),
             gasto.getStatusPagamento(), gasto.isPago(), gasto.getPhotoName(), gasto.getImagemBase64());
+}
+
+public static GastoDTO toGastoDTO(GastoRequestDTO gasto) {
+    User user = new User();
+    user.setId(gasto.getUserId());
+    AgendaDePagamento agenda = new AgendaDePagamento();
+    agenda.setId(gasto.getAgendaDePagamentoId());
+
+    return new GastoDTO(gasto.getId(), gasto.getCreatedAt(), gasto.getUpdatedAt(),
+            gasto.getVencimento(), gasto.getDescricao(), user,  gasto.getDeletado(), gasto.getDataInicial(), gasto.getDataFinal(),
+            gasto.getValor(), agenda, gasto.getStatusPagamento(), gasto.getPago(), null, null);
 }
 
 public static GastoDTO toGastoDTO(DashBoardResquestDTO dto) {

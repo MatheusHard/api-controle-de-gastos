@@ -2,7 +2,10 @@ package com.infotrapichao.api_controle_de_gastos.src.distributed.interfaces.cont
 
 import com.infotrapichao.api_controle_de_gastos.src.application.contracts.common.IGastoApplication;
 import com.infotrapichao.api_controle_de_gastos.src.distributed.interfaces.core.utils.Utils;
+import com.infotrapichao.api_controle_de_gastos.src.distributed.interfaces.dtos.common.AgendaDePagamentoDTO;
 import com.infotrapichao.api_controle_de_gastos.src.distributed.interfaces.dtos.common.GastoDTO;
+import com.infotrapichao.api_controle_de_gastos.src.distributed.interfaces.dtos.request.GastoRequestDTO;
+import com.infotrapichao.api_controle_de_gastos.src.distributed.interfaces.mappers.AgendaDePagamentoMapper;
 import com.infotrapichao.api_controle_de_gastos.src.distributed.interfaces.mappers.GastoMapper;
 import com.infotrapichao.api_controle_de_gastos.src.domain.models.common.Gasto;
 import com.infotrapichao.api_controle_de_gastos.src.infrastruture.clients.PhotoClient;
@@ -87,8 +90,10 @@ public class GastoController {
     }
 
     @GetMapping("/filtrar")
-    public ResponseEntity<List<GastoDTO>> filtrar(@ModelAttribute GastoDTO filter) {
-        var gastos = _gastoApplication.findAllByFilter(filter);
+    public ResponseEntity<List<GastoDTO>> filtrar(@ModelAttribute GastoRequestDTO filter) {
+
+        GastoDTO dto = GastoMapper.toGastoDTO(filter);
+        var gastos = _gastoApplication.findAllByFilter(dto);
         var lista = GastoMapper.toAgendamentoDTOList(gastos);
         return ResponseEntity.ok(lista);
     }
