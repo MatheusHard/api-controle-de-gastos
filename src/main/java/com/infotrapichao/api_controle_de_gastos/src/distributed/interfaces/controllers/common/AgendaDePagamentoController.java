@@ -2,10 +2,10 @@ package com.infotrapichao.api_controle_de_gastos.src.distributed.interfaces.cont
 
 import com.infotrapichao.api_controle_de_gastos.src.application.contracts.common.IAgendaDePagamentoApplication;
 import com.infotrapichao.api_controle_de_gastos.src.distributed.interfaces.dtos.common.AgendaDePagamentoDTO;
-import com.infotrapichao.api_controle_de_gastos.src.distributed.interfaces.dtos.common.GastoDTO;
-import com.infotrapichao.api_controle_de_gastos.src.distributed.interfaces.dtos.request.AgendaDePagamentoRequestDTO;
+import com.infotrapichao.api_controle_de_gastos.src.distributed.interfaces.dtos.request.created.AgendaDePagamentoCreatedRequestDTO;
+import com.infotrapichao.api_controle_de_gastos.src.distributed.interfaces.dtos.request.get.AgendaDePagamentoRequestDTO;
+import com.infotrapichao.api_controle_de_gastos.src.distributed.interfaces.dtos.request.updated.AgendaDePagamentoUpdatedRequestDTO;
 import com.infotrapichao.api_controle_de_gastos.src.distributed.interfaces.mappers.AgendaDePagamentoMapper;
-import com.infotrapichao.api_controle_de_gastos.src.distributed.interfaces.mappers.GastoMapper;
 import com.infotrapichao.api_controle_de_gastos.src.domain.models.common.AgendaDePagamento;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -25,9 +25,9 @@ public class AgendaDePagamentoController {
     }
 
     @PostMapping
-    public ResponseEntity<AgendaDePagamento> create(@Validated @RequestBody AgendaDePagamentoDTO agendaDePagamentoDTO) {
+    public ResponseEntity<AgendaDePagamento> create(@Validated @RequestBody AgendaDePagamentoCreatedRequestDTO agendaDePagamentoDTO) {
 
-        AgendaDePagamento agendaDePagamento = AgendaDePagamentoMapper.toAgendaDePagamento(agendaDePagamentoDTO);
+        AgendaDePagamento agendaDePagamento = AgendaDePagamentoMapper.toEntity(agendaDePagamentoDTO);
         var agendamentoCreated = _agendaDePagamentoApplication.create(agendaDePagamento);
         URI location = ServletUriComponentsBuilder
                 .fromCurrentRequest()
@@ -38,9 +38,9 @@ public class AgendaDePagamentoController {
     }
 
     @PutMapping()
-    public ResponseEntity<AgendaDePagamento> put(@RequestBody AgendaDePagamentoDTO agendaDePagamentoDTO) {
+    public ResponseEntity<AgendaDePagamento> put(@RequestBody AgendaDePagamentoUpdatedRequestDTO agendaDePagamentoDTO) {
 
-        AgendaDePagamento agendaDePagamento = AgendaDePagamentoMapper.toAgendaDePagamento(agendaDePagamentoDTO);
+        AgendaDePagamento agendaDePagamento = AgendaDePagamentoMapper.toEntity(agendaDePagamentoDTO);
         var agendaDePagamentoUpdated = _agendaDePagamentoApplication.update(agendaDePagamento);
         URI location = ServletUriComponentsBuilder
                 .fromCurrentRequest()
@@ -52,7 +52,7 @@ public class AgendaDePagamentoController {
 
     @GetMapping()
     public ResponseEntity<List<AgendaDePagamentoDTO>> findAll() {
-        var lista = AgendaDePagamentoMapper.toAgendamentoDTOList(_agendaDePagamentoApplication.findAll());
+        var lista = AgendaDePagamentoMapper.toDtoList(_agendaDePagamentoApplication.findAll());
         return ResponseEntity.ok(lista);
     }
 
@@ -64,21 +64,21 @@ public class AgendaDePagamentoController {
     @GetMapping("/findOne")
     public ResponseEntity<AgendaDePagamentoDTO> findOne(@ModelAttribute AgendaDePagamentoRequestDTO filter) {
 
-        AgendaDePagamentoDTO dto = AgendaDePagamentoMapper.toAgendaDePagamentoDTO(filter);
+        AgendaDePagamentoDTO dto = AgendaDePagamentoMapper.toDto(filter);
         var agendasDePagamento = _agendaDePagamentoApplication.findAllByFilter(dto);
         AgendaDePagamento agendaDePagamento = null;
         if(!agendasDePagamento.isEmpty()){
             agendaDePagamento = agendasDePagamento.getFirst();
         }
-        var fatura = agendaDePagamento != null ? AgendaDePagamentoMapper.toAgendaDePagamentoDTO(agendaDePagamento): null;
+        var fatura = agendaDePagamento != null ? AgendaDePagamentoMapper.toDto(agendaDePagamento): null;
         return ResponseEntity.ok(fatura);
     }
     @PostMapping("/filtrar")
     public ResponseEntity<List<AgendaDePagamentoDTO>> filtrar(@ModelAttribute AgendaDePagamentoRequestDTO filter) {
 
-        AgendaDePagamentoDTO dto = AgendaDePagamentoMapper.toAgendaDePagamentoDTO(filter);
+        AgendaDePagamentoDTO dto = AgendaDePagamentoMapper.toDto(filter);
         var agendasDePagamento = _agendaDePagamentoApplication.findAllByFilter(dto);
-        var lista = AgendaDePagamentoMapper.toAgendamentoDTOList(agendasDePagamento);
+        var lista = AgendaDePagamentoMapper.toDtoList(agendasDePagamento);
         return ResponseEntity.ok(lista);
     }
 }

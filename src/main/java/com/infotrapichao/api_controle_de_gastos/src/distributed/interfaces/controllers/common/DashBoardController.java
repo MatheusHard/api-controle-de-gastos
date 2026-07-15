@@ -3,7 +3,7 @@ package com.infotrapichao.api_controle_de_gastos.src.distributed.interfaces.cont
 import com.infotrapichao.api_controle_de_gastos.src.application.contracts.common.IGastoApplication;
 import com.infotrapichao.api_controle_de_gastos.src.distributed.interfaces.dtos.common.GastoDTO;
 import com.infotrapichao.api_controle_de_gastos.src.distributed.interfaces.dtos.common.dashboard.TotaisMensaisResponse;
-import com.infotrapichao.api_controle_de_gastos.src.distributed.interfaces.dtos.request.DashBoardResquestDTO;
+import com.infotrapichao.api_controle_de_gastos.src.distributed.interfaces.dtos.request.get.DashBoardResquestDTO;
 import com.infotrapichao.api_controle_de_gastos.src.distributed.interfaces.mappers.GastoMapper;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

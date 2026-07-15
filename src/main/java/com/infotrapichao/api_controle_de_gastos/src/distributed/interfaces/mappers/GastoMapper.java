@@ -2,8 +2,8 @@ package com.infotrapichao.api_controle_de_gastos.src.distributed.interfaces.mapp
 
 
 import com.infotrapichao.api_controle_de_gastos.src.distributed.interfaces.dtos.common.GastoDTO;
-import com.infotrapichao.api_controle_de_gastos.src.distributed.interfaces.dtos.request.DashBoardResquestDTO;
-import com.infotrapichao.api_controle_de_gastos.src.distributed.interfaces.dtos.request.GastoRequestDTO;
+import com.infotrapichao.api_controle_de_gastos.src.distributed.interfaces.dtos.request.get.DashBoardResquestDTO;
+import com.infotrapichao.api_controle_de_gastos.src.distributed.interfaces.dtos.request.get.GastoRequestDTO;
 import com.infotrapichao.api_controle_de_gastos.src.domain.models.common.AgendaDePagamento;
 import com.infotrapichao.api_controle_de_gastos.src.domain.models.common.Gasto;
 import com.infotrapichao.api_controle_de_gastos.src.domain.models.security.User;

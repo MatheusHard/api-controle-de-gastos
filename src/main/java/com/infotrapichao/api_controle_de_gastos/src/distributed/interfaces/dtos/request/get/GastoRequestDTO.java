@@ -1,8 +1,6 @@
-package com.infotrapichao.api_controle_de_gastos.src.distributed.interfaces.dtos.request;
+package com.infotrapichao.api_controle_de_gastos.src.distributed.interfaces.dtos.request.get;
 
 import com.infotrapichao.api_controle_de_gastos.src.distributed.interfaces.enums.StatusPagamentoEnum;
-import com.infotrapichao.api_controle_de_gastos.src.domain.models.common.AgendaDePagamento;
-import com.infotrapichao.api_controle_de_gastos.src.domain.models.security.User;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

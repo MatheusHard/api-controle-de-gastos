@@ -1,11 +1,8 @@
 package com.infotrapichao.api_controle_de_gastos.src.distributed.interfaces.controllers.common;
 
 import com.infotrapichao.api_controle_de_gastos.src.application.contracts.common.IGastoApplication;
-import com.infotrapichao.api_controle_de_gastos.src.distributed.interfaces.core.utils.Utils;
-import com.infotrapichao.api_controle_de_gastos.src.distributed.interfaces.dtos.common.AgendaDePagamentoDTO;
 import com.infotrapichao.api_controle_de_gastos.src.distributed.interfaces.dtos.common.GastoDTO;
-import com.infotrapichao.api_controle_de_gastos.src.distributed.interfaces.dtos.request.GastoRequestDTO;
-import com.infotrapichao.api_controle_de_gastos.src.distributed.interfaces.mappers.AgendaDePagamentoMapper;
+import com.infotrapichao.api_controle_de_gastos.src.distributed.interfaces.dtos.request.get.GastoRequestDTO;
 import com.infotrapichao.api_controle_de_gastos.src.distributed.interfaces.mappers.GastoMapper;
 import com.infotrapichao.api_controle_de_gastos.src.domain.models.common.Gasto;
 import com.infotrapichao.api_controle_de_gastos.src.infrastruture.clients.PhotoClient;
