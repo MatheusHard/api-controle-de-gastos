@@ -23,8 +23,13 @@ public class UserSpecification {
                 predicates.add(cb.equal(root.get("id"), filtro.getId()));
             }
             // UserName
-            if (filtro.getUsername() != null) {
-                predicates.add(cb.equal(root.get("username"), filtro.getUsername()));
+            if (filtro.getUsername() != null && !filtro.getUsername().trim().isEmpty()) {
+                predicates.add(
+                        cb.like(
+                                cb.lower(root.get("username")),
+                                "%" + filtro.getUsername().trim().toLowerCase() + "%"
+                        )
+                );
             }
             // Email
             if (filtro.getEmail() != null) {
