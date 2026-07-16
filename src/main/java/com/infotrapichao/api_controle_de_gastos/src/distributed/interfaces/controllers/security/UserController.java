@@ -2,9 +2,13 @@ package com.infotrapichao.api_controle_de_gastos.src.distributed.interfaces.cont
 
 
 import com.infotrapichao.api_controle_de_gastos.src.application.contracts.security.IUserApplication;
+import com.infotrapichao.api_controle_de_gastos.src.distributed.interfaces.dtos.common.GastoDTO;
 import com.infotrapichao.api_controle_de_gastos.src.distributed.interfaces.dtos.request.created.security.UserCreatedRequestDTO;
+import com.infotrapichao.api_controle_de_gastos.src.distributed.interfaces.dtos.request.get.GastoRequestDTO;
+import com.infotrapichao.api_controle_de_gastos.src.distributed.interfaces.dtos.request.get.security.UserRequestDTO;
 import com.infotrapichao.api_controle_de_gastos.src.distributed.interfaces.dtos.request.updated.security.UserUpdatedRequestDTO;
 import com.infotrapichao.api_controle_de_gastos.src.distributed.interfaces.dtos.security.UserDTO;
+import com.infotrapichao.api_controle_de_gastos.src.distributed.interfaces.mappers.GastoMapper;
 import com.infotrapichao.api_controle_de_gastos.src.distributed.interfaces.mappers.security.UserMapper;
 import com.infotrapichao.api_controle_de_gastos.src.domain.models.security.User;
 import org.springframework.http.ResponseEntity;
@@ -61,5 +65,13 @@ public class UserController {
         var user = _userApplication.findById(id);
         user.setPassword(null);
         return ResponseEntity.ok(user);
+    }
+    @GetMapping("/filtrar")
+    public ResponseEntity<List<UserDTO>> filtrar(@ModelAttribute UserRequestDTO filter) {
+
+        UserDTO dto = UserMapper.toUserDTO(filter);
+        var users = _userApplication.findAllByFilter(dto);
+        var lista = UserMapper.toUserDTOList(users);
+        return ResponseEntity.ok(lista);
     }
 }

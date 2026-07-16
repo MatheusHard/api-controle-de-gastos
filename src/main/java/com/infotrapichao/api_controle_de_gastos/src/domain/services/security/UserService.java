@@ -1,8 +1,11 @@
 package com.infotrapichao.api_controle_de_gastos.src.domain.services.security;
 
+import com.infotrapichao.api_controle_de_gastos.src.distributed.interfaces.dtos.security.UserDTO;
 import com.infotrapichao.api_controle_de_gastos.src.domain.models.security.User;
 import com.infotrapichao.api_controle_de_gastos.src.domain.contracts.services.security.IUserService;
 import com.infotrapichao.api_controle_de_gastos.src.infrastruture.repositories.security.UserRepository;
+import com.infotrapichao.api_controle_de_gastos.src.infrastruture.repositories.specification.GastoSpecification;
+import com.infotrapichao.api_controle_de_gastos.src.infrastruture.repositories.specification.security.UserSpecification;
 import org.hibernate.grammars.hql.HqlParser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -60,6 +63,12 @@ public class UserService implements IUserService {
     @Override
     public User findByUsername(String username) {
         return _userRepository.findByUsername(username);
+    }
+
+    @Override
+    public List<User> findAllByFilter(UserDTO filter) {
+
+        return  _userRepository.findAll(UserSpecification.withFiltersDTO(filter));
     }
 
 }

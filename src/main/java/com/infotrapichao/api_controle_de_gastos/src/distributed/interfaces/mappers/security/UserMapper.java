@@ -1,6 +1,7 @@
 package com.infotrapichao.api_controle_de_gastos.src.distributed.interfaces.mappers.security;
 
 import com.infotrapichao.api_controle_de_gastos.src.distributed.interfaces.dtos.request.created.security.UserCreatedRequestDTO;
+import com.infotrapichao.api_controle_de_gastos.src.distributed.interfaces.dtos.request.get.security.UserRequestDTO;
 import com.infotrapichao.api_controle_de_gastos.src.distributed.interfaces.dtos.request.updated.security.UserUpdatedRequestDTO;
 import com.infotrapichao.api_controle_de_gastos.src.distributed.interfaces.dtos.security.UserDTO;
 import com.infotrapichao.api_controle_de_gastos.src.domain.models.security.User;
@@ -24,10 +25,28 @@ public final class UserMapper {
                 user.getUsername(),
                 user.getEmail(),
                 user.getPassword(),
-                user.getRoles()
+                user.getRoles(),
+                null,
+                null
         );
     }
+    public static UserDTO toUserDTO(UserRequestDTO user) {
+        if (user == null) {
+            return null;
+        }
 
+        return new UserDTO(
+                user.getId(),
+                user.getCreatedAt(),
+                user.getUpdatedAt(),
+                user.getUsername(),
+                user.getEmail(),
+                user.getPassword(),
+            null,
+                user.getDataInicial(),
+                user.getDataFinal()
+        );
+    }
     public static User toUser(UserDTO dto) {
         if (dto == null) {
             return null;
