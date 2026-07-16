@@ -2,7 +2,9 @@ package com.infotrapichao.api_controle_de_gastos.src.distributed.interfaces.cont
 
 import com.infotrapichao.api_controle_de_gastos.src.application.contracts.common.IGastoApplication;
 import com.infotrapichao.api_controle_de_gastos.src.distributed.interfaces.dtos.common.GastoDTO;
+import com.infotrapichao.api_controle_de_gastos.src.distributed.interfaces.dtos.request.created.GastoCreatedRequestDTO;
 import com.infotrapichao.api_controle_de_gastos.src.distributed.interfaces.dtos.request.get.GastoRequestDTO;
+import com.infotrapichao.api_controle_de_gastos.src.distributed.interfaces.dtos.request.updated.GastoUpdatedRequestDTO;
 import com.infotrapichao.api_controle_de_gastos.src.distributed.interfaces.mappers.GastoMapper;
 import com.infotrapichao.api_controle_de_gastos.src.domain.models.common.Gasto;
 import com.infotrapichao.api_controle_de_gastos.src.infrastruture.clients.PhotoClient;
@@ -30,7 +32,7 @@ public class GastoController {
     }
 
     @PostMapping
-    public ResponseEntity<Gasto> create(@Validated @RequestBody GastoDTO gastoDTO, HttpServletRequest request) {
+    public ResponseEntity<Gasto> create(@Validated @RequestBody GastoCreatedRequestDTO gastoDTO, HttpServletRequest request) {
         String authorization = request.getHeader("Authorization");
 
         Gasto gasto = GastoMapper.toGasto(gastoDTO);
@@ -54,7 +56,7 @@ public class GastoController {
     }
 
     @PutMapping()
-    public ResponseEntity<Gasto> put(@RequestBody GastoDTO gastoDTO, HttpServletRequest request) {
+    public ResponseEntity<Gasto> put(@RequestBody GastoUpdatedRequestDTO gastoDTO, HttpServletRequest request) {
         String authorization = request.getHeader("Authorization");
         Gasto gasto = GastoMapper.toGasto(gastoDTO);
         // Micro-serviço de imagens
@@ -76,7 +78,7 @@ public class GastoController {
 
     @GetMapping()
     public ResponseEntity<List<GastoDTO>> findAll() {
-        var lista = GastoMapper.toAgendamentoDTOList(_gastoApplication.findAll());
+        var lista = GastoMapper.toGastoDTOList(_gastoApplication.findAll());
         return ResponseEntity.ok(lista);
     }
 
@@ -91,7 +93,7 @@ public class GastoController {
 
         GastoDTO dto = GastoMapper.toGastoDTO(filter);
         var gastos = _gastoApplication.findAllByFilter(dto);
-        var lista = GastoMapper.toAgendamentoDTOList(gastos);
+        var lista = GastoMapper.toGastoDTOList(gastos);
         return ResponseEntity.ok(lista);
     }
 

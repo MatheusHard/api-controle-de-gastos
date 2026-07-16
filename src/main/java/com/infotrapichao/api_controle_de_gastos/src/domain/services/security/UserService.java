@@ -3,10 +3,12 @@ package com.infotrapichao.api_controle_de_gastos.src.domain.services.security;
 import com.infotrapichao.api_controle_de_gastos.src.domain.models.security.User;
 import com.infotrapichao.api_controle_de_gastos.src.domain.contracts.services.security.IUserService;
 import com.infotrapichao.api_controle_de_gastos.src.infrastruture.repositories.security.UserRepository;
+import org.hibernate.grammars.hql.HqlParser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.NoSuchElementException;
 
@@ -44,6 +46,8 @@ public class UserService implements IUserService {
         if(!_userRepository.existsById(user.getId())){
             throw new IllegalArgumentException("Usuário não cadastrado!!!");
         }else{
+             if(user.getPassword() != null) user.setPassword(cripty.encode(user.getPassword()));
+             user.setUpdatedAt(LocalDateTime.now());
              return _userRepository.save(user);
         }
     }

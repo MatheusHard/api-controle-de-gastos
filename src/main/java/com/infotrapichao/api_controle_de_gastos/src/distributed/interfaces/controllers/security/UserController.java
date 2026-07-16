@@ -2,11 +2,11 @@ package com.infotrapichao.api_controle_de_gastos.src.distributed.interfaces.cont
 
 
 import com.infotrapichao.api_controle_de_gastos.src.application.contracts.security.IUserApplication;
+import com.infotrapichao.api_controle_de_gastos.src.distributed.interfaces.dtos.request.created.security.UserCreatedRequestDTO;
+import com.infotrapichao.api_controle_de_gastos.src.distributed.interfaces.dtos.request.updated.security.UserUpdatedRequestDTO;
 import com.infotrapichao.api_controle_de_gastos.src.distributed.interfaces.dtos.security.UserDTO;
-import com.infotrapichao.api_controle_de_gastos.src.distributed.interfaces.mappers.UserMapper;
+import com.infotrapichao.api_controle_de_gastos.src.distributed.interfaces.mappers.security.UserMapper;
 import com.infotrapichao.api_controle_de_gastos.src.domain.models.security.User;
-import com.infotrapichao.api_controle_de_gastos.src.domain.services.security.UserService;
-import com.infotrapichao.api_controle_de_gastos.src.domain.contracts.services.security.IUserService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -26,7 +26,7 @@ public class UserController {
     }
 
     @PostMapping
-    public ResponseEntity<User> create(@Validated @RequestBody UserDTO userDTO){
+    public ResponseEntity<User> create(@Validated @RequestBody UserCreatedRequestDTO userDTO){
 
         User usuario = UserMapper.toUser(userDTO);
         var userCreated = _userApplication.createUser(usuario);
@@ -39,7 +39,7 @@ public class UserController {
     }
 
     @PutMapping()
-    public ResponseEntity<User> put(@RequestBody UserDTO userDTO){
+    public ResponseEntity<User> put(@RequestBody UserUpdatedRequestDTO userDTO){
 
         User usuario = UserMapper.toUser(userDTO);
         var userUpdated = _userApplication.updateUser(usuario);
@@ -55,16 +55,11 @@ public class UserController {
         var lista = UserMapper.toUserDTOList(_userApplication.findAll());
         return ResponseEntity.ok(lista);
     }
+
     @GetMapping("/{id}")
     public ResponseEntity<User> findById(@PathVariable("id") Integer id){
         var user = _userApplication.findById(id);
         user.setPassword(null);
         return ResponseEntity.ok(user);
     }
-    /*
-    @DeleteMapping("/{id}")
-    public void delete(@PathVariable("id") Integer id){
-        userRepository.deleteById(id);
-    }*/
-
 }

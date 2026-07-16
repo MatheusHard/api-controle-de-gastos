@@ -43,7 +43,7 @@ public class RelatorioController {
         try {
             GastoDTO dto = GastoMapper.toGastoDTO(filter);
             var gastos = _gastoApplication.findAllByFilter(dto);
-            List<GastoDTO> lista = GastoMapper.toAgendamentoDTOList(gastos);
+            List<GastoDTO> lista = GastoMapper.toGastoDTOList(gastos);
 
             InputStream template = new ClassPathResource("templates/relatorio_gastos.xlsx").getInputStream();
             XSSFWorkbook workbook = new XSSFWorkbook(template);
@@ -120,7 +120,7 @@ public class RelatorioController {
         try {
             GastoDTO dto = GastoMapper.toGastoDTO(filter);
             var gastos = _gastoApplication.findAllByFilter(dto);
-            List<GastoDTO> lista = GastoMapper.toAgendamentoDTOList(gastos);
+            List<GastoDTO> lista = GastoMapper.toGastoDTOList(gastos);
 
             BigDecimal totalValor = lista.stream()
                     .map(GastoDTO::getValor)
