@@ -2,7 +2,7 @@ package com.infotrapichao.api_controle_de_gastos.src.distributed.interfaces.cont
 
 import com.infotrapichao.api_controle_de_gastos.src.application.contracts.common.IGastoApplication;
 import com.infotrapichao.api_controle_de_gastos.src.distributed.interfaces.dtos.common.GastoDTO;
-import com.infotrapichao.api_controle_de_gastos.src.distributed.interfaces.dtos.request.GastoRequestDTO;
+import com.infotrapichao.api_controle_de_gastos.src.distributed.interfaces.dtos.request.get.GastoRequestDTO;
 import com.infotrapichao.api_controle_de_gastos.src.distributed.interfaces.mappers.GastoMapper;
 import com.lowagie.text.*;
 import com.lowagie.text.pdf.PdfPCell;
@@ -43,7 +43,7 @@ public class RelatorioController {
         try {
             GastoDTO dto = GastoMapper.toGastoDTO(filter);
             var gastos = _gastoApplication.findAllByFilter(dto);
-            List<GastoDTO> lista = GastoMapper.toAgendamentoDTOList(gastos);
+            List<GastoDTO> lista = GastoMapper.toGastoDTOList(gastos);
 
             InputStream template = new ClassPathResource("templates/relatorio_gastos.xlsx").getInputStream();
             XSSFWorkbook workbook = new XSSFWorkbook(template);
@@ -120,7 +120,7 @@ public class RelatorioController {
         try {
             GastoDTO dto = GastoMapper.toGastoDTO(filter);
             var gastos = _gastoApplication.findAllByFilter(dto);
-            List<GastoDTO> lista = GastoMapper.toAgendamentoDTOList(gastos);
+            List<GastoDTO> lista = GastoMapper.toGastoDTOList(gastos);
 
             BigDecimal totalValor = lista.stream()
                     .map(GastoDTO::getValor)

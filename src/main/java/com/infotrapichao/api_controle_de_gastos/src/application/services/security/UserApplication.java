@@ -1,6 +1,7 @@
 package com.infotrapichao.api_controle_de_gastos.src.application.services.security;
 
 import com.infotrapichao.api_controle_de_gastos.src.application.contracts.security.IUserApplication;
+import com.infotrapichao.api_controle_de_gastos.src.distributed.interfaces.dtos.security.UserDTO;
 import com.infotrapichao.api_controle_de_gastos.src.domain.contracts.services.security.IUserService;
 import com.infotrapichao.api_controle_de_gastos.src.domain.models.security.User;
 import org.springframework.stereotype.Service;
@@ -36,5 +37,10 @@ public class UserApplication implements IUserApplication {
     @Override
     public List<User> findAll() {
         return _userService.findAll();
+    }
+
+    @Override
+    public List<User> findAllByFilter(UserDTO filter) {
+        return _userService.findAllByFilter(filter);
     }
 }

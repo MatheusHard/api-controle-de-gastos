@@ -1,7 +1,5 @@
-package com.infotrapichao.api_controle_de_gastos.src.distributed.interfaces.dtos.request;
+package com.infotrapichao.api_controle_de_gastos.src.distributed.interfaces.dtos.request.get;
 
-import com.infotrapichao.api_controle_de_gastos.src.domain.models.common.Gasto;
-import com.infotrapichao.api_controle_de_gastos.src.domain.models.security.User;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -9,7 +7,6 @@ import lombok.Setter;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.List;
 
 @Getter
 @Setter

@@ -1,5 +1,6 @@
 package com.infotrapichao.api_controle_de_gastos.src.domain.contracts.services.security;
 
+import com.infotrapichao.api_controle_de_gastos.src.distributed.interfaces.dtos.security.UserDTO;
 import com.infotrapichao.api_controle_de_gastos.src.domain.models.security.User;
 
 import java.util.List;
@@ -11,4 +12,5 @@ public interface IUserService {
     User updateUser(User user);
     List<User> findAll();
     User findByUsername(String username);
+    List<User> findAllByFilter(UserDTO filter);
 }

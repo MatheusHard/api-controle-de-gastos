@@ -1,13 +1,10 @@
-package com.infotrapichao.api_controle_de_gastos.src.distributed.interfaces.dtos.request;
+package com.infotrapichao.api_controle_de_gastos.src.distributed.interfaces.dtos.request.created;
 
 import com.infotrapichao.api_controle_de_gastos.src.distributed.interfaces.enums.StatusPagamentoEnum;
-import com.infotrapichao.api_controle_de_gastos.src.domain.models.common.AgendaDePagamento;
-import com.infotrapichao.api_controle_de_gastos.src.domain.models.security.User;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
@@ -15,20 +12,18 @@ import java.time.LocalDateTime;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class GastoRequestDTO {
+public class GastoCreatedRequestDTO {
 
-    private Integer id;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
     private LocalDateTime vencimento;
     private String descricao;
     private Integer userId;
-    private Boolean deletado;
-    private LocalDateTime dataInicial;
-    private LocalDateTime dataFinal;
+    private Boolean deletado = false;
     private BigDecimal valor;
     private Integer agendaDePagamentoId;
     private StatusPagamentoEnum statusPagamento;
-    private Boolean pago;
-
+    private Boolean pago = false;
+    private String photoName;
+    private String imagemBase64;
 }
