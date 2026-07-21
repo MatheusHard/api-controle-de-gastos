@@ -7,6 +7,7 @@ import com.infotrapichao.api_controle_de_gastos.src.distributed.interfaces.dtos.
 import com.infotrapichao.api_controle_de_gastos.src.distributed.interfaces.dtos.request.updated.AgendaDePagamentoUpdatedRequestDTO;
 import com.infotrapichao.api_controle_de_gastos.src.distributed.interfaces.mappers.AgendaDePagamentoMapper;
 import com.infotrapichao.api_controle_de_gastos.src.domain.models.common.AgendaDePagamento;
+import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -25,7 +26,7 @@ public class AgendaDePagamentoController {
     }
 
     @PostMapping
-    public ResponseEntity<AgendaDePagamento> create(@Validated @RequestBody AgendaDePagamentoCreatedRequestDTO agendaDePagamentoDTO) {
+    public ResponseEntity<AgendaDePagamento> create(@Valid @RequestBody AgendaDePagamentoCreatedRequestDTO agendaDePagamentoDTO) {
 
         AgendaDePagamento agendaDePagamento = AgendaDePagamentoMapper.toEntity(agendaDePagamentoDTO);
         var agendamentoCreated = _agendaDePagamentoApplication.create(agendaDePagamento);
@@ -38,7 +39,7 @@ public class AgendaDePagamentoController {
     }
 
     @PutMapping()
-    public ResponseEntity<AgendaDePagamento> put(@RequestBody AgendaDePagamentoUpdatedRequestDTO agendaDePagamentoDTO) {
+    public ResponseEntity<AgendaDePagamento> put(@Valid @RequestBody AgendaDePagamentoUpdatedRequestDTO agendaDePagamentoDTO) {
 
         AgendaDePagamento agendaDePagamento = AgendaDePagamentoMapper.toEntity(agendaDePagamentoDTO);
         var agendaDePagamentoUpdated = _agendaDePagamentoApplication.update(agendaDePagamento);

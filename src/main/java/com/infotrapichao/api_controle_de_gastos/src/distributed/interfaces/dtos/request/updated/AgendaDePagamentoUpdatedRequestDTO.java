@@ -1,5 +1,6 @@
 package com.infotrapichao.api_controle_de_gastos.src.distributed.interfaces.dtos.request.updated;
 
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -13,9 +14,13 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 public class AgendaDePagamentoUpdatedRequestDTO {
 
+    @NotNull(message = "Id é obrigatório.")
     private Integer id;
+    @NotNull(message = "Data de criação é obrigatória.")
     private LocalDateTime createdAt;
+    @NotNull(message = "Data de criação é obrigatória.")
     private LocalDateTime updatedAt;
+    @NotNull(message = "Usuário é obrigatório.")
     private Integer userId;
     private Boolean deletado;
 

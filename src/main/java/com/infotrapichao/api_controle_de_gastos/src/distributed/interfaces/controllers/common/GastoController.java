@@ -11,6 +11,7 @@ import com.infotrapichao.api_controle_de_gastos.src.infrastruture.clients.PhotoC
 
 import jakarta.servlet.http.HttpServletRequest;
 
+import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -32,7 +33,7 @@ public class GastoController {
     }
 
     @PostMapping
-    public ResponseEntity<Gasto> create(@Validated @RequestBody GastoCreatedRequestDTO gastoDTO, HttpServletRequest request) {
+    public ResponseEntity<Gasto> create(@Valid @RequestBody GastoCreatedRequestDTO gastoDTO, HttpServletRequest request) {
         String authorization = request.getHeader("Authorization");
 
         Gasto gasto = GastoMapper.toGasto(gastoDTO);
@@ -56,7 +57,7 @@ public class GastoController {
     }
 
     @PutMapping()
-    public ResponseEntity<Gasto> put(@RequestBody GastoUpdatedRequestDTO gastoDTO, HttpServletRequest request) {
+    public ResponseEntity<Gasto> put(@Valid @RequestBody GastoUpdatedRequestDTO gastoDTO, HttpServletRequest request) {
         String authorization = request.getHeader("Authorization");
         Gasto gasto = GastoMapper.toGasto(gastoDTO);
         // Micro-serviço de imagens

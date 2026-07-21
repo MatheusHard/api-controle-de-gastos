@@ -7,6 +7,7 @@ import com.infotrapichao.api_controle_de_gastos.src.distributed.interfaces.dtos.
 import com.infotrapichao.api_controle_de_gastos.src.domain.models.security.User;
 import com.infotrapichao.api_controle_de_gastos.src.distributed.interfaces.configuration.jwt.JwtService;
 import com.infotrapichao.api_controle_de_gastos.src.distributed.interfaces.configuration.jwt.SecurityConfig;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -35,7 +36,7 @@ public class AuthController {
     }
 
     @PostMapping("/login")
-    public SessionDTO login(@RequestBody LoginDTO login) {
+    public SessionDTO login(@Valid @RequestBody LoginDTO login) {
 
         String username = Utils.decodeBase64(login.getUsername());
         String password = Utils.decodeBase64(login.getPassword());

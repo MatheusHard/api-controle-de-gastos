@@ -11,6 +11,7 @@ import com.infotrapichao.api_controle_de_gastos.src.distributed.interfaces.dtos.
 import com.infotrapichao.api_controle_de_gastos.src.distributed.interfaces.mappers.GastoMapper;
 import com.infotrapichao.api_controle_de_gastos.src.distributed.interfaces.mappers.security.UserMapper;
 import com.infotrapichao.api_controle_de_gastos.src.domain.models.security.User;
+import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -30,7 +31,7 @@ public class UserController {
     }
 
     @PostMapping
-    public ResponseEntity<User> create(@Validated @RequestBody UserCreatedRequestDTO userDTO){
+    public ResponseEntity<User> create(@Valid @RequestBody UserCreatedRequestDTO userDTO){
 
         User usuario = UserMapper.toUser(userDTO);
         var userCreated = _userApplication.createUser(usuario);
@@ -43,7 +44,7 @@ public class UserController {
     }
 
     @PutMapping()
-    public ResponseEntity<User> put(@RequestBody UserUpdatedRequestDTO userDTO){
+    public ResponseEntity<User> put(@Valid @RequestBody UserUpdatedRequestDTO userDTO){
 
         User usuario = UserMapper.toUser(userDTO);
         var userUpdated = _userApplication.updateUser(usuario);
