@@ -1,10 +1,10 @@
 package com.infotrapichao.api_controle_de_gastos.src.distributed.interfaces.controllers.common;
 
 import com.infotrapichao.api_controle_de_gastos.src.application.contracts.common.IAgendaDePagamentoApplication;
-import com.infotrapichao.api_controle_de_gastos.src.distributed.interfaces.dtos.common.AgendaDePagamentoDTO;
-import com.infotrapichao.api_controle_de_gastos.src.distributed.interfaces.dtos.request.created.AgendaDePagamentoCreatedRequestDTO;
-import com.infotrapichao.api_controle_de_gastos.src.distributed.interfaces.dtos.request.get.AgendaDePagamentoRequestDTO;
-import com.infotrapichao.api_controle_de_gastos.src.distributed.interfaces.dtos.request.updated.AgendaDePagamentoUpdatedRequestDTO;
+import com.infotrapichao.api_controle_de_gastos.src.distributed.interfaces.dtos.common.get.AgendaDePagamentoDTO;
+import com.infotrapichao.api_controle_de_gastos.src.distributed.interfaces.dtos.common.created.AgendaDePagamentoCreatedRequestDTO;
+import com.infotrapichao.api_controle_de_gastos.src.distributed.interfaces.dtos.common.get.AgendaDePagamentoRequestDTO;
+import com.infotrapichao.api_controle_de_gastos.src.distributed.interfaces.dtos.common.updated.AgendaDePagamentoUpdatedRequestDTO;
 import com.infotrapichao.api_controle_de_gastos.src.distributed.interfaces.mappers.AgendaDePagamentoMapper;
 import com.infotrapichao.api_controle_de_gastos.src.domain.models.common.AgendaDePagamento;
 import org.springframework.http.ResponseEntity;

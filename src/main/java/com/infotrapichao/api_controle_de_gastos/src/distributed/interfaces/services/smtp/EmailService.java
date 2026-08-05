@@ -1,7 +1,7 @@
 package com.infotrapichao.api_controle_de_gastos.src.distributed.interfaces.services.smtp;
 
 import com.infotrapichao.api_controle_de_gastos.src.distributed.interfaces.core.utils.Utils;
-import com.infotrapichao.api_controle_de_gastos.src.distributed.interfaces.dtos.common.EmailDTO;
+import com.infotrapichao.api_controle_de_gastos.src.distributed.interfaces.dtos.common.get.EmailDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;

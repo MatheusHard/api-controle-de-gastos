@@ -1,4 +1,4 @@
-package com.infotrapichao.api_controle_de_gastos.src.distributed.interfaces.dtos.request.get.security;
+package com.infotrapichao.api_controle_de_gastos.src.distributed.interfaces.dtos.common.updated;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -11,14 +11,12 @@ import java.time.LocalDateTime;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class UserRequestDTO {
+public class AgendaDePagamentoUpdatedRequestDTO {
 
     private Integer id;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
-    private String username;
-    private String email;
-    private String password;
-    private LocalDateTime dataInicial;
-    private LocalDateTime dataFinal;
+    private Integer userId;
+    private Boolean deletado;
+
 }

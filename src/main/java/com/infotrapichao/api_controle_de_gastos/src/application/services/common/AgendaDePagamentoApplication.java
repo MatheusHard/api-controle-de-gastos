@@ -1,12 +1,9 @@
 package com.infotrapichao.api_controle_de_gastos.src.application.services.common;
 
 import com.infotrapichao.api_controle_de_gastos.src.application.contracts.common.IAgendaDePagamentoApplication;
-import com.infotrapichao.api_controle_de_gastos.src.distributed.interfaces.dtos.common.AgendaDePagamentoDTO;
-import com.infotrapichao.api_controle_de_gastos.src.distributed.interfaces.dtos.common.GastoDTO;
+import com.infotrapichao.api_controle_de_gastos.src.distributed.interfaces.dtos.common.get.AgendaDePagamentoDTO;
 import com.infotrapichao.api_controle_de_gastos.src.domain.contracts.services.common.IAgendaDePagamentoService;
-import com.infotrapichao.api_controle_de_gastos.src.domain.contracts.services.common.IGastoService;
 import com.infotrapichao.api_controle_de_gastos.src.domain.models.common.AgendaDePagamento;
-import com.infotrapichao.api_controle_de_gastos.src.domain.models.common.Gasto;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

@@ -1,4 +1,4 @@
-package com.infotrapichao.api_controle_de_gastos.src.distributed.interfaces.dtos.security;
+package com.infotrapichao.api_controle_de_gastos.src.distributed.interfaces.dtos.security.get;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

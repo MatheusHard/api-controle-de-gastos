@@ -1,9 +1,9 @@
 package com.infotrapichao.api_controle_de_gastos.src.application.services.common;
 
 import com.infotrapichao.api_controle_de_gastos.src.application.contracts.common.IGastoApplication;
-import com.infotrapichao.api_controle_de_gastos.src.distributed.interfaces.dtos.common.GastoDTO;
-import com.infotrapichao.api_controle_de_gastos.src.distributed.interfaces.dtos.common.dashboard.GastosMensaisDTO;
-import com.infotrapichao.api_controle_de_gastos.src.distributed.interfaces.dtos.common.dashboard.TotaisMensaisResponse;
+import com.infotrapichao.api_controle_de_gastos.src.distributed.interfaces.dtos.common.get.GastoDTO;
+import com.infotrapichao.api_controle_de_gastos.src.distributed.interfaces.dtos.common.get.dashboard.GastosMensaisDTO;
+import com.infotrapichao.api_controle_de_gastos.src.distributed.interfaces.dtos.common.get.dashboard.TotaisMensaisResponse;
 import com.infotrapichao.api_controle_de_gastos.src.domain.contracts.services.common.IGastoService;
 import com.infotrapichao.api_controle_de_gastos.src.domain.models.common.Gasto;
 import org.springframework.stereotype.Service;

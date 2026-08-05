@@ -1,8 +1,8 @@
 package com.infotrapichao.api_controle_de_gastos.src.distributed.interfaces.services.workers;
 
 import com.infotrapichao.api_controle_de_gastos.src.application.contracts.common.IGastoApplication;
-import com.infotrapichao.api_controle_de_gastos.src.distributed.interfaces.dtos.common.EmailDTO;
-import com.infotrapichao.api_controle_de_gastos.src.distributed.interfaces.dtos.common.GastoDTO;
+import com.infotrapichao.api_controle_de_gastos.src.distributed.interfaces.dtos.common.get.EmailDTO;
+import com.infotrapichao.api_controle_de_gastos.src.distributed.interfaces.dtos.common.get.GastoDTO;
 import com.infotrapichao.api_controle_de_gastos.src.distributed.interfaces.services.smtp.EmailService;
 import com.infotrapichao.api_controle_de_gastos.src.domain.models.common.Gasto;
 import org.springframework.beans.factory.annotation.Autowired;

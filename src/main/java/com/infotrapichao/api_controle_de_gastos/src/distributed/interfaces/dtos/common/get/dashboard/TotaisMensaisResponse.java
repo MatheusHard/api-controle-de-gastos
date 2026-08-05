@@ -1,4 +1,4 @@
-package com.infotrapichao.api_controle_de_gastos.src.distributed.interfaces.dtos.common.dashboard;
+package com.infotrapichao.api_controle_de_gastos.src.distributed.interfaces.dtos.common.get.dashboard;
 
 import java.math.BigDecimal;
 import java.util.List;

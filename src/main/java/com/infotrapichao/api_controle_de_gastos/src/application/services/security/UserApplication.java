@@ -1,7 +1,7 @@
 package com.infotrapichao.api_controle_de_gastos.src.application.services.security;
 
 import com.infotrapichao.api_controle_de_gastos.src.application.contracts.security.IUserApplication;
-import com.infotrapichao.api_controle_de_gastos.src.distributed.interfaces.dtos.security.UserDTO;
+import com.infotrapichao.api_controle_de_gastos.src.distributed.interfaces.dtos.security.get.UserDTO;
 import com.infotrapichao.api_controle_de_gastos.src.domain.contracts.services.security.IUserService;
 import com.infotrapichao.api_controle_de_gastos.src.domain.models.security.User;
 import org.springframework.stereotype.Service;

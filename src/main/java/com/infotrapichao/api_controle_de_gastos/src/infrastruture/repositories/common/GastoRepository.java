@@ -1,6 +1,6 @@
 package com.infotrapichao.api_controle_de_gastos.src.infrastruture.repositories.common;
 
-import com.infotrapichao.api_controle_de_gastos.src.distributed.interfaces.dtos.common.dashboard.GastosMensaisDTO;
+import com.infotrapichao.api_controle_de_gastos.src.distributed.interfaces.dtos.common.get.dashboard.GastosMensaisDTO;
 import com.infotrapichao.api_controle_de_gastos.src.domain.models.common.Gasto;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -14,7 +14,7 @@ import java.util.List;
 public interface GastoRepository  extends JpaRepository<Gasto, Integer> {
     List<Gasto> findAll(Specification<Gasto> agendamentoSpecification);
 
-    @Query("SELECT new com.infotrapichao.api_controle_de_gastos.src.distributed.interfaces.dtos.common.dashboard.GastosMensaisDTO(" +
+    @Query("SELECT new com.infotrapichao.api_controle_de_gastos.src.distributed.interfaces.dtos.common.get.dashboard.GastosMensaisDTO(" +
             "MONTH(g.createdAt), SUM(g.valor)) " +
             "FROM Gasto g " +
             "WHERE g.deletado = false " +

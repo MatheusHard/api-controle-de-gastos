@@ -1,10 +1,10 @@
 package com.infotrapichao.api_controle_de_gastos.src.distributed.interfaces.mappers;
 
-import com.infotrapichao.api_controle_de_gastos.src.distributed.interfaces.dtos.common.GastoDTO;
-import com.infotrapichao.api_controle_de_gastos.src.distributed.interfaces.dtos.request.created.GastoCreatedRequestDTO;
-import com.infotrapichao.api_controle_de_gastos.src.distributed.interfaces.dtos.request.get.DashBoardResquestDTO;
-import com.infotrapichao.api_controle_de_gastos.src.distributed.interfaces.dtos.request.get.GastoRequestDTO;
-import com.infotrapichao.api_controle_de_gastos.src.distributed.interfaces.dtos.request.updated.GastoUpdatedRequestDTO;
+import com.infotrapichao.api_controle_de_gastos.src.distributed.interfaces.dtos.common.get.GastoDTO;
+import com.infotrapichao.api_controle_de_gastos.src.distributed.interfaces.dtos.common.created.GastoCreatedRequestDTO;
+import com.infotrapichao.api_controle_de_gastos.src.distributed.interfaces.dtos.common.get.DashBoardResquestDTO;
+import com.infotrapichao.api_controle_de_gastos.src.distributed.interfaces.dtos.common.get.GastoRequestDTO;
+import com.infotrapichao.api_controle_de_gastos.src.distributed.interfaces.dtos.common.updated.GastoUpdatedRequestDTO;
 import com.infotrapichao.api_controle_de_gastos.src.distributed.interfaces.enums.StatusPagamentoEnum;
 import com.infotrapichao.api_controle_de_gastos.src.domain.models.common.AgendaDePagamento;
 import com.infotrapichao.api_controle_de_gastos.src.domain.models.common.Gasto;

@@ -1,4 +1,4 @@
-package com.infotrapichao.api_controle_de_gastos.src.distributed.interfaces.dtos.common;
+package com.infotrapichao.api_controle_de_gastos.src.distributed.interfaces.dtos.common.get;
 
 import com.infotrapichao.api_controle_de_gastos.src.domain.models.common.Gasto;
 import com.infotrapichao.api_controle_de_gastos.src.domain.models.security.User;

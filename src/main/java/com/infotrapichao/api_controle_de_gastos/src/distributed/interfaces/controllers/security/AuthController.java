@@ -2,8 +2,8 @@ package com.infotrapichao.api_controle_de_gastos.src.distributed.interfaces.cont
 
 import com.infotrapichao.api_controle_de_gastos.src.application.contracts.security.IUserApplication;
 import com.infotrapichao.api_controle_de_gastos.src.distributed.interfaces.core.utils.Utils;
-import com.infotrapichao.api_controle_de_gastos.src.distributed.interfaces.dtos.security.LoginDTO;
-import com.infotrapichao.api_controle_de_gastos.src.distributed.interfaces.dtos.security.SessionDTO;
+import com.infotrapichao.api_controle_de_gastos.src.distributed.interfaces.dtos.security.get.LoginDTO;
+import com.infotrapichao.api_controle_de_gastos.src.distributed.interfaces.dtos.security.get.SessionDTO;
 import com.infotrapichao.api_controle_de_gastos.src.domain.models.security.User;
 import com.infotrapichao.api_controle_de_gastos.src.distributed.interfaces.configuration.jwt.JwtService;
 import com.infotrapichao.api_controle_de_gastos.src.distributed.interfaces.configuration.jwt.SecurityConfig;

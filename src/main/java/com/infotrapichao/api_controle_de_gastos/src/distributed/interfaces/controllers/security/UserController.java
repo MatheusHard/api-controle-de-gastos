@@ -2,13 +2,10 @@ package com.infotrapichao.api_controle_de_gastos.src.distributed.interfaces.cont
 
 
 import com.infotrapichao.api_controle_de_gastos.src.application.contracts.security.IUserApplication;
-import com.infotrapichao.api_controle_de_gastos.src.distributed.interfaces.dtos.common.GastoDTO;
-import com.infotrapichao.api_controle_de_gastos.src.distributed.interfaces.dtos.request.created.security.UserCreatedRequestDTO;
-import com.infotrapichao.api_controle_de_gastos.src.distributed.interfaces.dtos.request.get.GastoRequestDTO;
-import com.infotrapichao.api_controle_de_gastos.src.distributed.interfaces.dtos.request.get.security.UserRequestDTO;
-import com.infotrapichao.api_controle_de_gastos.src.distributed.interfaces.dtos.request.updated.security.UserUpdatedRequestDTO;
-import com.infotrapichao.api_controle_de_gastos.src.distributed.interfaces.dtos.security.UserDTO;
-import com.infotrapichao.api_controle_de_gastos.src.distributed.interfaces.mappers.GastoMapper;
+import com.infotrapichao.api_controle_de_gastos.src.distributed.interfaces.dtos.security.created.UserCreatedRequestDTO;
+import com.infotrapichao.api_controle_de_gastos.src.distributed.interfaces.dtos.security.get.UserRequestDTO;
+import com.infotrapichao.api_controle_de_gastos.src.distributed.interfaces.dtos.security.updated.UserUpdatedRequestDTO;
+import com.infotrapichao.api_controle_de_gastos.src.distributed.interfaces.dtos.security.get.UserDTO;
 import com.infotrapichao.api_controle_de_gastos.src.distributed.interfaces.mappers.security.UserMapper;
 import com.infotrapichao.api_controle_de_gastos.src.domain.models.security.User;
 import org.springframework.http.ResponseEntity;

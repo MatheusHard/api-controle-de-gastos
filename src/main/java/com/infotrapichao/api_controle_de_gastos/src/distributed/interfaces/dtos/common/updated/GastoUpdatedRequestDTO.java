@@ -1,4 +1,4 @@
-package com.infotrapichao.api_controle_de_gastos.src.distributed.interfaces.dtos.request.updated;
+package com.infotrapichao.api_controle_de_gastos.src.distributed.interfaces.dtos.common.updated;
 
 import com.infotrapichao.api_controle_de_gastos.src.distributed.interfaces.enums.StatusPagamentoEnum;
 import lombok.AllArgsConstructor;

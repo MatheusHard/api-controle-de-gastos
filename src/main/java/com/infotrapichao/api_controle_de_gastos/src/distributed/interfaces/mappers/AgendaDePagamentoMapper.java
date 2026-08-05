@@ -1,9 +1,9 @@
 package com.infotrapichao.api_controle_de_gastos.src.distributed.interfaces.mappers;
 
-import com.infotrapichao.api_controle_de_gastos.src.distributed.interfaces.dtos.common.AgendaDePagamentoDTO;
-import com.infotrapichao.api_controle_de_gastos.src.distributed.interfaces.dtos.request.created.AgendaDePagamentoCreatedRequestDTO;
-import com.infotrapichao.api_controle_de_gastos.src.distributed.interfaces.dtos.request.get.AgendaDePagamentoRequestDTO;
-import com.infotrapichao.api_controle_de_gastos.src.distributed.interfaces.dtos.request.updated.AgendaDePagamentoUpdatedRequestDTO;
+import com.infotrapichao.api_controle_de_gastos.src.distributed.interfaces.dtos.common.get.AgendaDePagamentoDTO;
+import com.infotrapichao.api_controle_de_gastos.src.distributed.interfaces.dtos.common.created.AgendaDePagamentoCreatedRequestDTO;
+import com.infotrapichao.api_controle_de_gastos.src.distributed.interfaces.dtos.common.get.AgendaDePagamentoRequestDTO;
+import com.infotrapichao.api_controle_de_gastos.src.distributed.interfaces.dtos.common.updated.AgendaDePagamentoUpdatedRequestDTO;
 import com.infotrapichao.api_controle_de_gastos.src.domain.models.common.AgendaDePagamento;
 import com.infotrapichao.api_controle_de_gastos.src.domain.models.security.User;
 

@@ -1,18 +1,17 @@
-package com.infotrapichao.api_controle_de_gastos.src.distributed.interfaces.dtos.security;
-
-import java.time.LocalDateTime;
-import java.util.List;
+package com.infotrapichao.api_controle_de_gastos.src.distributed.interfaces.dtos.security.get;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.time.LocalDateTime;
+
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class UserDTO {
+public class UserRequestDTO {
 
     private Integer id;
     private LocalDateTime createdAt;
@@ -20,8 +19,6 @@ public class UserDTO {
     private String username;
     private String email;
     private String password;
-    private List<String> roles;
     private LocalDateTime dataInicial;
     private LocalDateTime dataFinal;
-
 }

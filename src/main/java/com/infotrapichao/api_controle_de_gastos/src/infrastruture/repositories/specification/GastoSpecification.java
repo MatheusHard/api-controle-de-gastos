@@ -1,6 +1,6 @@
 package com.infotrapichao.api_controle_de_gastos.src.infrastruture.repositories.specification;
 
-import com.infotrapichao.api_controle_de_gastos.src.distributed.interfaces.dtos.common.GastoDTO;
+import com.infotrapichao.api_controle_de_gastos.src.distributed.interfaces.dtos.common.get.GastoDTO;
 import com.infotrapichao.api_controle_de_gastos.src.domain.models.common.Gasto;
 import jakarta.persistence.criteria.Predicate;
 import org.springframework.data.jpa.domain.Specification;
