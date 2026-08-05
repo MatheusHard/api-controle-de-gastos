@@ -3,9 +3,9 @@ spring:
     name: api-controle-de-gastos
 
   datasource:
-    url: jdbc:mysql://square-cloud-db-4939545f82b94cbd9901966148acdab8.squareweb.app:7007/db_controle_de_gastos_homologacao?sslMode=REQUIRED&serverTimezone=America/Sao_Paulo&characterEncoding=UTF-8
-    username: squarecloud
-    password: MOuCbMnoAwItHA5EEICSAGlt
+    url: ${DB_URL}
+    username: ${DB_USER}
+    password: ${DB_PASS}
     driver-class-name: com.mysql.cj.jdbc.Driver
     hikari:
       max-lifetime: 300000
@@ -18,10 +18,10 @@ spring:
     database-platform: org.hibernate.dialect.MySQLDialect
 
   mail:
-    host: 'SMTP_HOST.com'
-    port: 500
-    username: 'SMTP_USER'
-    password: 'ffd'
+    host: ${SMTP_HOST}
+    port: ${SMTP_PORT}
+    username: ${SMTP_USER}
+    password: ${SMTP_PASS}
     protocol: smtp
     properties:
       mail:
@@ -35,13 +35,13 @@ spring:
 
 security:
   config:
-    prefix: Bearer
-    key: SECRET
+    prefix: ${JWT_PREFIX}
+    key: ${JWT_KEY}
     expiration: 3600000
 
 jwt:
-  secret: DDDFGFDSKKMMMMMMSAKALSMALDAGHGFJDLEEKEMDSSDADNFGBVVCC
-  expiration: 3600000
+  secret: ${JWT_SECRET}
+  expiration: ${JWT_EXPIRATION}
 
 logging:
   level:
@@ -51,8 +51,8 @@ logging:
         web: DEBUG
 
 server:
-  port: 8081
+  port: ${PORT:80}
   address: 0.0.0.0
 
 photo-service:
-  url: https://ms-imagem.squareweb.app
+  url: ${MS_URL_IMAGEM}
