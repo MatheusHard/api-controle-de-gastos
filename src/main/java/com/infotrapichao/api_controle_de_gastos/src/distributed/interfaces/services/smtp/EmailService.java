@@ -1,6 +1,7 @@
 package com.infotrapichao.api_controle_de_gastos.src.distributed.interfaces.services.smtp;
 
 import com.infotrapichao.api_controle_de_gastos.src.distributed.interfaces.core.utils.Utils;
+import com.infotrapichao.api_controle_de_gastos.src.distributed.interfaces.dtos.common.created.EmailCreatedRequestDTO;
 import com.infotrapichao.api_controle_de_gastos.src.distributed.interfaces.dtos.common.get.EmailDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -30,6 +31,20 @@ public class EmailService {
         } catch (MessagingException e) {
             System.out.println("Erro ao enviar e-mail: " + e.getMessage());
         }
+    }
+
+    public void sendHtmlEmail(EmailCreatedRequestDTO emailDTO) throws MessagingException {
+
+            MimeMessage mimeMessage = mailSender.createMimeMessage();
+            MimeMessageHelper helper = new MimeMessageHelper(mimeMessage, true, "UTF-8");
+
+            helper.setTo(emailDTO.getDestinatario());
+            helper.setSubject(emailDTO.getAssunto());
+           // helper.setText(getCorpo(emailDTO), true);
+            helper.setFrom(emailDTO.getRemetente());
+
+            mailSender.send(mimeMessage);
+
     }
 
     private String getCorpo(EmailDTO emailDTO) {
