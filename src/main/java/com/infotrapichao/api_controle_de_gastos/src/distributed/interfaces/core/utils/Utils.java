@@ -232,4 +232,9 @@ public class Utils {
 
         table.addCell(cell);
     }
+
+    public static String retornarMesAnteriorAno(){
+        LocalDateTime data = LocalDateTime.now();
+        return data.minusMonths(1).format(DateTimeFormatter.ofPattern("MM/yyyy"));
+    }
 }

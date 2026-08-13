@@ -4,18 +4,23 @@ import com.infotrapichao.api_controle_de_gastos.src.distributed.interfaces.core.
 import com.infotrapichao.api_controle_de_gastos.src.distributed.interfaces.dtos.common.created.EmailCreatedRequestDTO;
 import com.infotrapichao.api_controle_de_gastos.src.distributed.interfaces.dtos.common.get.EmailDTO;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.io.ByteArrayResource;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
-
 import jakarta.mail.MessagingException;
 import jakarta.mail.internet.MimeMessage;
+import static com.infotrapichao.api_controle_de_gastos.src.distributed.interfaces.core.utils.Utils.retornarMesAnteriorAno;
 
 @Service
 public class EmailService {
 
     @Autowired
     private JavaMailSender mailSender;
+
+    @Value("${spring.mail.username}")
+    private String remetente;
 
     public void sendHtmlEmail(EmailDTO emailDTO) {
         try {
@@ -35,16 +40,22 @@ public class EmailService {
 
     public void sendHtmlEmail(EmailCreatedRequestDTO emailDTO) throws MessagingException {
 
-            MimeMessage mimeMessage = mailSender.createMimeMessage();
-            MimeMessageHelper helper = new MimeMessageHelper(mimeMessage, true, "UTF-8");
+        MimeMessage mimeMessage = mailSender.createMimeMessage();
+        MimeMessageHelper helper = new MimeMessageHelper(mimeMessage, true, "UTF-8");
+        helper.setTo(emailDTO.getDestinatario());
+        helper.setSubject(emailDTO.getAssunto());
+        helper.setFrom(remetente);
 
-            helper.setTo(emailDTO.getDestinatario());
-            helper.setSubject(emailDTO.getAssunto());
-           // helper.setText(getCorpo(emailDTO), true);
-            helper.setFrom(emailDTO.getRemetente());
+        // Corpo HTML
+        helper.setText(getCorpoComPdf(emailDTO), true);
 
-            mailSender.send(mimeMessage);
+        // Anexo
+        if (emailDTO.getFile() != null) {
+            ByteArrayResource arquivo = new ByteArrayResource(emailDTO.getFile().toByteArray());
+            helper.addAttachment("Relatorio_Gastos.pdf", arquivo);
+        }
 
+        mailSender.send(mimeMessage);
     }
 
     private String getCorpo(EmailDTO emailDTO) {
@@ -74,4 +85,41 @@ public class EmailService {
                         """,
                 nomeUser, descricao, valor, dataVencimento);
     }
-}
+
+    private String getCorpoComPdf(EmailCreatedRequestDTO emailDTO) {
+
+        String nomeUser = emailDTO.getNomeUsuario();
+        String mesAno = retornarMesAnteriorAno();
+
+        return String.format(
+                """
+                <!DOCTYPE html>
+                <html>
+                <head>
+                  <meta charset="UTF-8">
+                </head>
+                <body style="font-family: Arial, sans-serif; font-size: 16px; color: #000;">
+                  <br>
+    
+                  <p>Olá <strong>Sr.(a) %s</strong>,</p>
+    
+                  <p>Segue em anexo o relatório de gastos referente ao mês:</p>
+    
+                  <p>
+                    📄 Faturas do mês:
+                    <strong style="font-size: 18px;">%s</strong>
+                  </p>
+    
+                  <br>
+    
+                  <p>
+                    Caso tenha alguma dúvida, entre em contato.
+                  </p>
+    
+                  </body>
+                  </html>
+                """,
+                nomeUser,
+                mesAno
+        );
+    }}
