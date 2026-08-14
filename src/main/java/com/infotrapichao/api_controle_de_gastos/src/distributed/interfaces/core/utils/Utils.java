@@ -1,6 +1,7 @@
 package com.infotrapichao.api_controle_de_gastos.src.distributed.interfaces.core.utils;
 
 import com.infotrapichao.api_controle_de_gastos.src.distributed.interfaces.dtos.common.get.GastoDTO;
+import com.infotrapichao.api_controle_de_gastos.src.distributed.interfaces.dtos.common.get.GastoRequestDTO;
 import com.infotrapichao.api_controle_de_gastos.src.distributed.interfaces.enums.StatusPagamentoEnum;
 import com.infotrapichao.api_controle_de_gastos.src.distributed.interfaces.mappers.GastoMapper;
 import com.infotrapichao.api_controle_de_gastos.src.domain.models.common.Gasto;
@@ -24,6 +25,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.Base64;
 import java.util.List;
 import java.util.Locale;
+import java.util.Objects;
 
 public class Utils {
     public static String decodeBase64(String input) {
@@ -236,5 +238,11 @@ public class Utils {
     public static String retornarMesAnteriorAno(){
         LocalDateTime data = LocalDateTime.now();
         return data.minusMonths(1).format(DateTimeFormatter.ofPattern("MM/yyyy"));
+    }
+
+    public static String retornarPeriodo(GastoRequestDTO filters){
+
+        if(filters.getDataInicial() == null && filters.getDataFinal() == null) return  "";
+        return Objects.requireNonNull(filters.getDataInicial()).format(DateTimeFormatter.ofPattern("dd/MM/yyyy")) + " à "+ filters.getDataFinal().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
     }
 }

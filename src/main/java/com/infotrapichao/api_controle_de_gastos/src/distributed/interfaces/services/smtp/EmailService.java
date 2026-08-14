@@ -11,7 +11,7 @@ import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
 import jakarta.mail.MessagingException;
 import jakarta.mail.internet.MimeMessage;
-import static com.infotrapichao.api_controle_de_gastos.src.distributed.interfaces.core.utils.Utils.retornarMesAnteriorAno;
+import static com.infotrapichao.api_controle_de_gastos.src.distributed.interfaces.core.utils.Utils.retornarPeriodo;
 
 @Service
 public class EmailService {
@@ -89,7 +89,7 @@ public class EmailService {
     private String getCorpoComPdf(EmailCreatedRequestDTO emailDTO) {
 
         String nomeUser = emailDTO.getNomeUsuario();
-        String mesAno = retornarMesAnteriorAno();
+        String periodo = retornarPeriodo(emailDTO.getFilters());
 
         return String.format(
                 """
@@ -100,18 +100,12 @@ public class EmailService {
                 </head>
                 <body style="font-family: Arial, sans-serif; font-size: 16px; color: #000;">
                   <br>
-    
                   <p>Olá <strong>Sr.(a) %s</strong>,</p>
-    
-                  <p>Segue em anexo o relatório de gastos referente ao mês:</p>
-    
+                  <p>Segue em anexo o relatório dos gastos.</p>
                   <p>
-                    📄 Faturas do mês:
+                    📅 Período:
                     <strong style="font-size: 18px;">%s</strong>
-                  </p>
-    
-                  <br>
-    
+                  </p><br>
                   <p>
                     Caso tenha alguma dúvida, entre em contato.
                   </p>
@@ -120,6 +114,6 @@ public class EmailService {
                   </html>
                 """,
                 nomeUser,
-                mesAno
+                periodo
         );
     }}
