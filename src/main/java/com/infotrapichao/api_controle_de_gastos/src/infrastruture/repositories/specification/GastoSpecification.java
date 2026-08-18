@@ -60,6 +60,15 @@ public class GastoSpecification {
             if (filtro.getStatusPagamento() != null) {
                 predicates.add(cb.equal(root.get("statusPagamento"), filtro.getStatusPagamento()));
             }
+            // Descrição
+            if (filtro.getDescricao() != null && !filtro.getDescricao().trim().isEmpty()) {
+                predicates.add(
+                        cb.like(
+                                cb.lower(root.get("descricao")),
+                                "%" + filtro.getDescricao().trim().toLowerCase() + "%"
+                        )
+                );
+            }
             // Ordenação por updatedAt DESC
             query.orderBy(cb.desc(root.get("updatedAt")));
 
