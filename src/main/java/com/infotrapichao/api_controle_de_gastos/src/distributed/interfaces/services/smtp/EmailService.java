@@ -11,6 +11,9 @@ import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
 import jakarta.mail.MessagingException;
 import jakarta.mail.internet.MimeMessage;
+
+import java.io.UnsupportedEncodingException;
+
 import static com.infotrapichao.api_controle_de_gastos.src.distributed.interfaces.core.utils.Utils.retornarPeriodo;
 
 @Service
@@ -22,6 +25,9 @@ public class EmailService {
     @Value("${spring.mail.username}")
     private String remetente;
 
+    @Value("${spring.mail.empresa}")
+    private String empresa;
+
     public void sendHtmlEmail(EmailDTO emailDTO) {
         try {
             MimeMessage mimeMessage = mailSender.createMimeMessage();
@@ -30,21 +36,21 @@ public class EmailService {
             helper.setTo(emailDTO.getDestinatario());
             helper.setSubject(emailDTO.getAssunto());
             helper.setText(getCorpo(emailDTO), true);
-            helper.setFrom(emailDTO.getRemetente());
+            helper.setFrom(emailDTO.getRemetente(), empresa);
 
             mailSender.send(mimeMessage);
-        } catch (MessagingException e) {
+        } catch (MessagingException | UnsupportedEncodingException e) {
             System.out.println("Erro ao enviar e-mail: " + e.getMessage());
         }
     }
 
-    public void sendHtmlEmail(EmailCreatedRequestDTO emailDTO) throws MessagingException {
+    public void sendHtmlEmail(EmailCreatedRequestDTO emailDTO) throws MessagingException, UnsupportedEncodingException {
 
         MimeMessage mimeMessage = mailSender.createMimeMessage();
         MimeMessageHelper helper = new MimeMessageHelper(mimeMessage, true, "UTF-8");
         helper.setTo(emailDTO.getDestinatario());
         helper.setSubject(emailDTO.getAssunto());
-        helper.setFrom(remetente);
+        helper.setFrom(remetente, empresa);
 
         // Corpo HTML
         helper.setText(getCorpoComPdf(emailDTO), true);
