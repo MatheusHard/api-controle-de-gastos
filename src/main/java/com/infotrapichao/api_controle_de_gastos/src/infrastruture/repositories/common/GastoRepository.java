@@ -1,6 +1,7 @@
 package com.infotrapichao.api_controle_de_gastos.src.infrastruture.repositories.common;
 
 import com.infotrapichao.api_controle_de_gastos.src.distributed.interfaces.dtos.common.get.dashboard.GastosMensaisDTO;
+import com.infotrapichao.api_controle_de_gastos.src.distributed.interfaces.enums.StatusPagamentoEnum;
 import com.infotrapichao.api_controle_de_gastos.src.domain.models.common.Gasto;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -8,9 +9,9 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Repository;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 @Repository
@@ -31,7 +32,7 @@ public interface GastoRepository  extends JpaRepository<Gasto, Integer> {
             "AND (:agendaId IS NULL OR g.agendaDePagamento.id = :agendaId) " +
             "AND (:statusPagamento IS NULL OR g.statusPagamento = :statusPagamento) " +
             "AND (:descricao IS NULL OR LOWER(g.descricao) LIKE LOWER(:descricao))")
-    java.math.BigDecimal sumValorByFilters(
+    BigDecimal sumValorByFilters(
             @Param("usuarioId") Integer usuarioId,
             @Param("deletado") Boolean deletado,
             @Param("id") Integer id,
@@ -42,7 +43,7 @@ public interface GastoRepository  extends JpaRepository<Gasto, Integer> {
             @Param("vencimentoFim") java.time.LocalDateTime vencimentoFim,
             @Param("pago") Boolean pago,
             @Param("agendaId") Integer agendaId,
-            @Param("statusPagamento") com.infotrapichao.api_controle_de_gastos.src.distributed.interfaces.enums.StatusPagamentoEnum statusPagamento,
+            @Param("statusPagamento") StatusPagamentoEnum statusPagamento,
             @Param("descricao") String descricao);
 
     @Query("SELECT new com.infotrapichao.api_controle_de_gastos.src.distributed.interfaces.dtos.common.get.dashboard.GastosMensaisDTO(" +
@@ -53,6 +54,5 @@ public interface GastoRepository  extends JpaRepository<Gasto, Integer> {
             "GROUP BY MONTH(g.createdAt) " +
             "ORDER BY MONTH(g.createdAt)")
     List<GastosMensaisDTO> findTotaisPorMes(@Param("usuarioId") Integer usuarioId);
-
 
 }

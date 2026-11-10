@@ -3,7 +3,8 @@ package com.infotrapichao.api_controle_de_gastos.src.distributed.interfaces.cont
 import com.infotrapichao.api_controle_de_gastos.src.application.contracts.security.IUserApplication;
 import com.infotrapichao.api_controle_de_gastos.src.distributed.interfaces.core.utils.Utils;
 import com.infotrapichao.api_controle_de_gastos.src.distributed.interfaces.dtos.security.get.LoginDTO;
-import com.infotrapichao.api_controle_de_gastos.src.distributed.interfaces.dtos.security.get.SessionDTO;
+import com.infotrapichao.api_controle_de_gastos.src.distributed.interfaces.dtos.security.get.SessionResponseDTO;
+import com.infotrapichao.api_controle_de_gastos.src.distributed.interfaces.mappers.security.UserMapper;
 import com.infotrapichao.api_controle_de_gastos.src.domain.models.security.User;
 import com.infotrapichao.api_controle_de_gastos.src.distributed.interfaces.configuration.jwt.JwtService;
 import com.infotrapichao.api_controle_de_gastos.src.distributed.interfaces.configuration.jwt.SecurityConfig;
@@ -35,7 +36,7 @@ public class AuthController {
     }
 
     @PostMapping("/login")
-    public SessionDTO login(@RequestBody LoginDTO login) {
+    public SessionResponseDTO login(@RequestBody LoginDTO login) {
 
         String username = Utils.decodeBase64(login.getUsername());
         String password = Utils.decodeBase64(login.getPassword());
@@ -48,7 +49,7 @@ public class AuthController {
                 throw new RuntimeException("Senha inválida para o login" + login.getUsername());
             }
             // Estamos enviado o token
-            SessionDTO session = new SessionDTO();
+            SessionResponseDTO session = new SessionResponseDTO();
             session.setLogin(user.getUsername());
             // Definindo claims adicionais
             Map<String, Object> claims = new HashMap<>();
@@ -58,8 +59,7 @@ public class AuthController {
             String token = jwtService.generateToken(user.getUsername(), claims);
 
             session.setToken(token);
-            user.setPassword(null);
-            session.setUser(user);
+            session.setUser(UserMapper.toUserResponseDTO(user));
 
             return session;
         } else {
