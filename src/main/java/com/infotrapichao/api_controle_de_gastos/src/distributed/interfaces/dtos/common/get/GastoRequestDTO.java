@@ -28,5 +28,7 @@ public class GastoRequestDTO {
     private Integer agendaDePagamentoId;
     private StatusPagamentoEnum statusPagamento;
     private Boolean pago;
+    private Integer page = 0;
+    private Integer size = 20;
 
 }

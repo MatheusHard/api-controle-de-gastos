@@ -3,8 +3,10 @@ package com.infotrapichao.api_controle_de_gastos.src.domain.contracts.services.c
 import com.infotrapichao.api_controle_de_gastos.src.distributed.interfaces.dtos.common.get.GastoDTO;
 import com.infotrapichao.api_controle_de_gastos.src.distributed.interfaces.dtos.common.get.dashboard.GastosMensaisDTO;
 import com.infotrapichao.api_controle_de_gastos.src.domain.models.common.Gasto;
+import org.springframework.data.domain.Page;
 
 import java.util.List;
+import java.math.BigDecimal;
 
 public interface IGastoService {
     Gasto findById(Integer id);
@@ -12,6 +14,8 @@ public interface IGastoService {
     Gasto update(Gasto gasto);
     List<Gasto> findAll();
     List<Gasto> findAllByFilter(GastoDTO filter);
+    Page<Gasto> findAllByFilter(GastoDTO filter, int page, int size);
+    BigDecimal sumValorByFilter(GastoDTO filter);
     List<GastosMensaisDTO> findTotaisPorMes(GastoDTO filter);
 
 }

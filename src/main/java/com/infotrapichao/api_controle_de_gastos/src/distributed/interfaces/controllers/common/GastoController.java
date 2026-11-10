@@ -5,6 +5,7 @@ import com.infotrapichao.api_controle_de_gastos.src.distributed.interfaces.dtos.
 import com.infotrapichao.api_controle_de_gastos.src.distributed.interfaces.dtos.common.created.GastoCreatedRequestDTO;
 import com.infotrapichao.api_controle_de_gastos.src.distributed.interfaces.dtos.common.get.GastoRequestDTO;
 import com.infotrapichao.api_controle_de_gastos.src.distributed.interfaces.dtos.common.updated.GastoUpdatedRequestDTO;
+import com.infotrapichao.api_controle_de_gastos.src.distributed.interfaces.dtos.common.response.GastosPaginadosResponse;
 import com.infotrapichao.api_controle_de_gastos.src.distributed.interfaces.mappers.GastoMapper;
 import com.infotrapichao.api_controle_de_gastos.src.domain.models.common.Gasto;
 import com.infotrapichao.api_controle_de_gastos.src.infrastruture.clients.PhotoClient;
@@ -12,6 +13,7 @@ import com.infotrapichao.api_controle_de_gastos.src.infrastruture.clients.PhotoC
 import jakarta.servlet.http.HttpServletRequest;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.data.domain.Page;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -88,13 +90,21 @@ public class GastoController {
         return ResponseEntity.ok(gasto);
     }
 
-    @GetMapping("/filtrar")
-    public ResponseEntity<List<GastoDTO>> filtrar(@ModelAttribute GastoRequestDTO filter) {
+    @GetMapping("/filtrar_pageable")
+    public ResponseEntity<GastosPaginadosResponse> filtrarPageable(@ModelAttribute GastoRequestDTO filter) {
 
         GastoDTO dto = GastoMapper.toGastoDTO(filter);
-        var gastos = _gastoApplication.findAllByFilter(dto);
-        var lista = GastoMapper.toGastoDTOList(gastos);
-        return ResponseEntity.ok(lista);
+        var gastos = _gastoApplication.findAllByFilter(dto, filter.getPage(), filter.getSize());
+        var totalValor = _gastoApplication.sumValorByFilter(dto);
+        return ResponseEntity.ok(GastosPaginadosResponse.from(gastos, totalValor));
     }
 
+    @GetMapping("/filtrar")
+    public ResponseEntity<GastosPaginadosResponse> filtrar(@ModelAttribute GastoRequestDTO filter) {
+
+        GastoDTO dto = GastoMapper.toGastoDTO(filter);
+        var gastos = _gastoApplication.findAllByFilter(dto, filter.getPage(), filter.getSize());
+        var totalValor = _gastoApplication.sumValorByFilter(dto);
+        return ResponseEntity.ok(GastosPaginadosResponse.from(gastos, totalValor));
+    }
 }

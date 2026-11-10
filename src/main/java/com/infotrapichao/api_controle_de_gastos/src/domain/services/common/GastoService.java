@@ -10,8 +10,13 @@ import com.infotrapichao.api_controle_de_gastos.src.infrastruture.repositories.s
 import io.micrometer.common.lang.NonNull;
 
 import org.springframework.stereotype.Service;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 
 import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.NoSuchElementException;
 
@@ -75,6 +80,45 @@ public class GastoService implements IGastoService {
     @Override
     public List<Gasto> findAllByFilter(GastoDTO filter) {
         return _gastoRepository.findAll(GastoSpecification.withFiltersDTO(filter));
+    }
+
+    @Override
+    public Page<Gasto> findAllByFilter(GastoDTO filter, int page, int size) {
+        if (page < 0) {
+            throw new IllegalArgumentException("A página deve ser maior ou igual a zero.");
+        }
+        if (size < 1 || size > 100) {
+            throw new IllegalArgumentException("O tamanho da página deve estar entre 1 e 100.");
+        }
+
+        PageRequest pageable = PageRequest.of(page, size, Sort.by(Sort.Direction.DESC, "updatedAt"));
+        return _gastoRepository.findAll(GastoSpecification.withFiltersDTO(filter), pageable);
+    }
+
+    public BigDecimal sumValorByFilter(GastoDTO filter) {
+        LocalDateTime vencimentoInicio = filter.getVencimento() == null
+                ? null
+                : filter.getVencimento().toLocalDate().atStartOfDay();
+        LocalDateTime vencimentoFim = filter.getVencimento() == null
+                ? null
+                : filter.getVencimento().toLocalDate().atTime(LocalTime.MAX);
+
+        return _gastoRepository.sumValorByFilters(
+                filter.getUser() == null ? null : filter.getUser().getId(),
+                filter.getDeletado(),
+                filter.getId(),
+                filter.getCreatedAt(),
+                filter.getDataInicial() == null ? null : filter.getDataInicial().toLocalDate().atStartOfDay(),
+                filter.getDataFinal() == null ? null : filter.getDataFinal().toLocalDate().atTime(LocalTime.MAX),
+                vencimentoInicio,
+                vencimentoFim,
+                filter.getPago(),
+                filter.getAgendaDePagamento() == null ? null : filter.getAgendaDePagamento().getId(),
+                filter.getStatusPagamento(),
+                filter.getDescricao() == null || filter.getDescricao().isBlank()
+                        ? null
+                        : "%" + filter.getDescricao().trim() + "%"
+        );
     }
 
     @Override
