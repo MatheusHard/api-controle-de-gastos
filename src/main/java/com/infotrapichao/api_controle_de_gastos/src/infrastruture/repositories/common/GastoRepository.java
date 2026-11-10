@@ -12,6 +12,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Repository
@@ -36,11 +37,11 @@ public interface GastoRepository  extends JpaRepository<Gasto, Integer> {
             @Param("usuarioId") Integer usuarioId,
             @Param("deletado") Boolean deletado,
             @Param("id") Integer id,
-            @Param("createdAt") java.time.LocalDateTime createdAt,
-            @Param("dataInicial") java.time.LocalDateTime dataInicial,
-            @Param("dataFinal") java.time.LocalDateTime dataFinal,
-            @Param("vencimentoInicio") java.time.LocalDateTime vencimentoInicio,
-            @Param("vencimentoFim") java.time.LocalDateTime vencimentoFim,
+            @Param("createdAt") LocalDateTime createdAt,
+            @Param("dataInicial") LocalDateTime dataInicial,
+            @Param("dataFinal") LocalDateTime dataFinal,
+            @Param("vencimentoInicio") LocalDateTime vencimentoInicio,
+            @Param("vencimentoFim") LocalDateTime vencimentoFim,
             @Param("pago") Boolean pago,
             @Param("agendaId") Integer agendaId,
             @Param("statusPagamento") StatusPagamentoEnum statusPagamento,

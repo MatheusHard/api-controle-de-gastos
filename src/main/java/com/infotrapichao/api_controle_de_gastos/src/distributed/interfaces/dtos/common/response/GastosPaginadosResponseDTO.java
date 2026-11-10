@@ -6,17 +6,17 @@ import org.springframework.data.domain.Page;
 import java.math.BigDecimal;
 import java.util.List;
 
-public record GastosPaginadosResponse(
-        List<GastoResumoResponse> content,
+public record GastosPaginadosResponseDTO(
+        List<GastoResumoResponseDTO> content,
         int number,
         int size,
         long totalElements,
         int totalPages,
         BigDecimal totalValor
 ) {
-    public static GastosPaginadosResponse from(Page<Gasto> page, BigDecimal totalValor) {
-        return new GastosPaginadosResponse(
-                page.getContent().stream().map(GastoResumoResponse::from).toList(),
+    public static GastosPaginadosResponseDTO from(Page<Gasto> page, BigDecimal totalValor) {
+        return new GastosPaginadosResponseDTO(
+                page.getContent().stream().map(GastoResumoResponseDTO::from).toList(),
                 page.getNumber(),
                 page.getSize(),
                 page.getTotalElements(),

@@ -4,6 +4,7 @@ import com.infotrapichao.api_controle_de_gastos.src.application.contracts.common
 import com.infotrapichao.api_controle_de_gastos.src.distributed.interfaces.dtos.common.get.AgendaDePagamentoDTO;
 import com.infotrapichao.api_controle_de_gastos.src.distributed.interfaces.dtos.common.created.AgendaDePagamentoCreatedRequestDTO;
 import com.infotrapichao.api_controle_de_gastos.src.distributed.interfaces.dtos.common.get.AgendaDePagamentoRequestDTO;
+import com.infotrapichao.api_controle_de_gastos.src.distributed.interfaces.dtos.common.response.AgendaDePagamentoResponseDTO;
 import com.infotrapichao.api_controle_de_gastos.src.distributed.interfaces.dtos.common.updated.AgendaDePagamentoUpdatedRequestDTO;
 import com.infotrapichao.api_controle_de_gastos.src.distributed.interfaces.mappers.AgendaDePagamentoMapper;
 import com.infotrapichao.api_controle_de_gastos.src.domain.models.common.AgendaDePagamento;
@@ -62,7 +63,7 @@ public class AgendaDePagamentoController {
         return ResponseEntity.ok(agendaDePagamento);
     }
     @GetMapping("/findOne")
-    public ResponseEntity<AgendaDePagamentoDTO> findOne(@ModelAttribute AgendaDePagamentoRequestDTO filter) {
+    public ResponseEntity<AgendaDePagamentoResponseDTO> findOne(@ModelAttribute AgendaDePagamentoRequestDTO filter) {
 
         AgendaDePagamentoDTO dto = AgendaDePagamentoMapper.toDto(filter);
         var agendasDePagamento = _agendaDePagamentoApplication.findAllByFilter(dto);
@@ -70,7 +71,7 @@ public class AgendaDePagamentoController {
         if(!agendasDePagamento.isEmpty()){
             agendaDePagamento = agendasDePagamento.getFirst();
         }
-        var fatura = agendaDePagamento != null ? AgendaDePagamentoMapper.toDto(agendaDePagamento): null;
+        var fatura = AgendaDePagamentoMapper.toResponseDTO(agendaDePagamento);
         return ResponseEntity.ok(fatura);
     }
     @GetMapping("/filtrar")

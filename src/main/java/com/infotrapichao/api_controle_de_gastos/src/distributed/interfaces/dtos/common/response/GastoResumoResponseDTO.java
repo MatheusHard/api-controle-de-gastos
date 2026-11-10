@@ -6,7 +6,7 @@ import com.infotrapichao.api_controle_de_gastos.src.domain.models.common.Gasto;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
-public record GastoResumoResponse(
+public record GastoResumoResponseDTO(
         Integer id,
         LocalDateTime createdAt,
         LocalDateTime updatedAt,
@@ -21,8 +21,8 @@ public record GastoResumoResponse(
         Boolean pago,
         String photoName
 ) {
-    public static GastoResumoResponse from(Gasto gasto) {
-        return new GastoResumoResponse(
+    public static GastoResumoResponseDTO from(Gasto gasto) {
+        return new GastoResumoResponseDTO(
                 gasto.getId(),
                 gasto.getCreatedAt(),
                 gasto.getUpdatedAt(),
