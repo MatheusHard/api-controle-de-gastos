@@ -4,25 +4,14 @@ import com.infotrapichao.api_controle_de_gastos.src.application.contracts.common
 import com.infotrapichao.api_controle_de_gastos.src.distributed.interfaces.dtos.common.get.GastoDTO;
 import com.infotrapichao.api_controle_de_gastos.src.distributed.interfaces.dtos.common.get.GastoRequestDTO;
 import com.infotrapichao.api_controle_de_gastos.src.distributed.interfaces.mappers.GastoMapper;
+import com.infotrapichao.api_controle_de_gastos.src.domain.models.common.Gasto;
 import com.lowagie.text.*;
-import com.lowagie.text.pdf.PdfPCell;
-import com.lowagie.text.pdf.PdfPTable;
-import com.lowagie.text.pdf.PdfWriter;
 import org.apache.poi.ss.usermodel.*;
-import com.lowagie.text.Font;
-import org.apache.poi.ss.usermodel.Cell;
-import org.apache.poi.ss.usermodel.Row;
-import org.apache.poi.xssf.usermodel.XSSFSheet;
-import org.apache.poi.xssf.usermodel.XSSFWorkbook;
-import org.springframework.core.io.ClassPathResource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
 import java.io.ByteArrayOutputStream;
-import java.io.InputStream;
-import java.math.BigDecimal;
 import java.util.List;
 
 import static com.infotrapichao.api_controle_de_gastos.src.distributed.interfaces.core.utils.Utils.*;
@@ -42,8 +31,7 @@ public class RelatorioController {
 
         try {
             GastoDTO dto = GastoMapper.toGastoDTO(filter);
-            var gastos = _gastoApplication.findAllByFilter(dto);
-
+            List<Gasto> gastos = _gastoApplication.findAllByFilter(dto, 0, 10000).getContent();
             ByteArrayOutputStream outputStream = gerarGastosExcel(gastos);
 
             return ResponseEntity.ok()
@@ -68,7 +56,7 @@ public class RelatorioController {
 
         try {
             GastoDTO dto = GastoMapper.toGastoDTO(filter);
-            var gastos = _gastoApplication.findAllByFilter(dto);
+            List<Gasto> gastos = _gastoApplication.findAllByFilter(dto, 0, 10000).getContent();
             ByteArrayOutputStream outputStream = gerarGastosPdf(gastos);
 
             return ResponseEntity.ok()

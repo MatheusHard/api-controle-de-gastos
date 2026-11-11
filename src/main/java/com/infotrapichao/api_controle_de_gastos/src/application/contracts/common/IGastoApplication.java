@@ -9,18 +9,14 @@ import java.util.List;
 import java.math.BigDecimal;
 
 public interface IGastoApplication {
+
     Gasto findById(Integer id);
-
     Gasto create(Gasto gasto);
-
     Gasto update(Gasto gasto);
-
     List<Gasto> findAll();
-
     List<Gasto> findAllByFilter(GastoDTO filter);
-
+    Page<Gasto> findAllByFilterPageable(GastoDTO filter, int page, int size);
     Page<Gasto> findAllByFilter(GastoDTO filter, int page, int size);
     BigDecimal sumValorByFilter(GastoDTO filter);
-
     TotaisMensaisResponse findTotaisPorMes(GastoDTO filter);
 }

@@ -94,7 +94,7 @@ public class GastoController {
     public ResponseEntity<GastosPaginadosResponseDTO> filtrarPageable(@ModelAttribute GastoRequestDTO filter) {
 
         GastoDTO dto = GastoMapper.toGastoDTO(filter);
-        var gastos = _gastoApplication.findAllByFilter(dto, filter.getPage(), filter.getSize());
+        var gastos = _gastoApplication.findAllByFilterPageable(dto, filter.getPage(), filter.getSize());
         var totalValor = _gastoApplication.sumValorByFilter(dto);
         return ResponseEntity.ok(GastosPaginadosResponseDTO.from(gastos, totalValor));
     }
@@ -103,7 +103,7 @@ public class GastoController {
     public ResponseEntity<GastosPaginadosResponseDTO> filtrar(@ModelAttribute GastoRequestDTO filter) {
 
         GastoDTO dto = GastoMapper.toGastoDTO(filter);
-        var gastos = _gastoApplication.findAllByFilter(dto, filter.getPage(), filter.getSize());
+        var gastos = _gastoApplication.findAllByFilter(dto, 0, 10000);
         var totalValor = _gastoApplication.sumValorByFilter(dto);
         return ResponseEntity.ok(GastosPaginadosResponseDTO.from(gastos, totalValor));
     }

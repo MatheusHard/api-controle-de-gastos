@@ -40,17 +40,11 @@ public class EmailController {
         try {
             //Pegar o arquivo Pdf
             GastoDTO dto = GastoMapper.toGastoDTO(emailDTO.getFilters());
-            List<Gasto> gastos = new ArrayList<>();
-            var pagina = _gastoApplication.findAllByFilter(dto, 0, 100);
-            gastos.addAll(pagina.getContent());
-            while (pagina.hasNext()) {
-                pagina = _gastoApplication.findAllByFilter(dto, pagina.getNumber() + 1, 100);
-                gastos.addAll(pagina.getContent());
-            }
+            List<Gasto> gastos = _gastoApplication.findAllByFilter(dto, 0, 10000).getContent();
             ByteArrayOutputStream outputStream = gerarGastosPdf(gastos);
             emailDTO.setFile(outputStream);
-            //send email
 
+            //send email
             _emailService.sendHtmlEmail(emailDTO);
         }catch (Exception e){
             return ResponseEntity.ok(new EmailResponseDTO(false,"Erro -> "+ e.getMessage()));

@@ -83,11 +83,24 @@ public class GastoService implements IGastoService {
     }
 
     @Override
-    public Page<Gasto> findAllByFilter(GastoDTO filter, int page, int size) {
+    public Page<Gasto> findAllByFilterPageable(GastoDTO filter, int page, int size) {
         if (page < 0) {
             throw new IllegalArgumentException("A página deve ser maior ou igual a zero.");
         }
         if (size < 1 || size > 100) {
+            throw new IllegalArgumentException("O tamanho da página deve estar entre 1 e 100.");
+        }
+
+        PageRequest pageable = PageRequest.of(page, size, Sort.by(Sort.Direction.DESC, "updatedAt"));
+        return _gastoRepository.findAll(GastoSpecification.withFiltersDTO(filter), pageable);
+    }
+
+    @Override
+    public Page<Gasto> findAllByFilter(GastoDTO filter, int page, int size) {
+        if (page < 0) {
+            throw new IllegalArgumentException("A página deve ser maior ou igual a zero.");
+        }
+        if (size < 1 || size > 10000) {
             throw new IllegalArgumentException("O tamanho da página deve estar entre 1 e 100.");
         }
 
@@ -125,4 +138,6 @@ public class GastoService implements IGastoService {
     public List<GastosMensaisDTO> findTotaisPorMes(GastoDTO filter) {
         return _gastoRepository.findTotaisPorMes(filter.getUser().getId());
     }
+
+
 }

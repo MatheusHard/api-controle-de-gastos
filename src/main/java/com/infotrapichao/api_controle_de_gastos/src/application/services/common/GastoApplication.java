@@ -52,6 +52,11 @@ public class GastoApplication implements IGastoApplication {
     }
 
     @Override
+    public Page<Gasto> findAllByFilterPageable(GastoDTO filter, int page, int size) {
+        return _gastoService.findAllByFilterPageable(filter, page, size);
+    }
+
+    @Override
     public BigDecimal sumValorByFilter(GastoDTO filter) {
         return _gastoService.sumValorByFilter(filter);
     }
