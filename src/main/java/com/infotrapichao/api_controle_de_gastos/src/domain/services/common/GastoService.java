@@ -16,6 +16,7 @@ import org.springframework.data.domain.Sort;
 
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.time.Year;
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.NoSuchElementException;
@@ -135,8 +136,9 @@ public class GastoService implements IGastoService {
     }
 
     @Override
-    public List<GastosMensaisDTO> findTotaisPorMes(GastoDTO filter) {
-        return _gastoRepository.findTotaisPorMes(filter.getUser().getId());
+    public List<GastosMensaisDTO> findTotaisPorMes(GastoDTO filter, Integer ano) {
+        int anoConsulta = ano == null ? Year.now().getValue() : ano;
+        return _gastoRepository.findTotaisPorMes(filter.getUser().getId(), anoConsulta);
     }
 
 

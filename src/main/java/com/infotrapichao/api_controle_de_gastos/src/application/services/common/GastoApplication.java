@@ -62,9 +62,9 @@ public class GastoApplication implements IGastoApplication {
     }
 
     @Override
-    public TotaisMensaisResponse findTotaisPorMes(GastoDTO filter) {
+    public TotaisMensaisResponse findTotaisPorMes(GastoDTO filter, Integer ano) {
 
-        List<GastosMensaisDTO> lista = _gastoService.findTotaisPorMes(filter);
+        List<GastosMensaisDTO> lista = _gastoService.findTotaisPorMes(filter, ano);
         BigDecimal somaTotal = lista.stream()
                 .map(GastosMensaisDTO::total)
                 .reduce(BigDecimal.ZERO, BigDecimal::add);

@@ -6,6 +6,9 @@ import com.infotrapichao.api_controle_de_gastos.src.domain.models.common.Gasto;
 import com.infotrapichao.api_controle_de_gastos.src.infrastruture.repositories.common.GastoRepository;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.NullSource;
+import org.junit.jupiter.params.provider.ValueSource;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
@@ -15,6 +18,7 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 
 import java.math.BigDecimal;
+import java.time.Year;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -56,18 +60,22 @@ class GastoServiceTest {
         verify(gastoRepository).findAll(any(Specification.class), any(Pageable.class));
     }
 
-    @Test
-    void findTotaisPorMes_shouldDelegateUsingUserId() {
+    @ParameterizedTest
+    @NullSource
+    @ValueSource(ints = 2024)
+    void findTotaisPorMes_shouldDelegateUsingUserIdAndSelectedYear(Integer ano) {
         GastoDTO filter = new GastoDTO();
         filter.setUser(new com.infotrapichao.api_controle_de_gastos.src.domain.models.security.User());
         filter.getUser().setId(9);
 
-        when(gastoRepository.findTotaisPorMes(9)).thenReturn(List.of(new GastosMensaisDTO(8, new BigDecimal("200.00"))));
+        int anoEsperado = ano == null ? Year.now().getValue() : ano;
+        when(gastoRepository.findTotaisPorMes(9, anoEsperado))
+                .thenReturn(List.of(new GastosMensaisDTO(8, new BigDecimal("200.00"))));
 
-        List<GastosMensaisDTO> totais = gastoService.findTotaisPorMes(filter);
+        List<GastosMensaisDTO> totais = gastoService.findTotaisPorMes(filter, ano);
 
         assertEquals(1, totais.size());
         assertEquals(new BigDecimal("200.00"), totais.getFirst().total());
-        verify(gastoRepository).findTotaisPorMes(9);
+        verify(gastoRepository).findTotaisPorMes(9, anoEsperado);
     }
 }

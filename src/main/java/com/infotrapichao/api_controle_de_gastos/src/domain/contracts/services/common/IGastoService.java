@@ -16,6 +16,6 @@ public interface IGastoService {
     List<Gasto> findAllByFilter(GastoDTO filter);
     Page<Gasto> findAllByFilter(GastoDTO filter, int page, int size);
     BigDecimal sumValorByFilter(GastoDTO filter);
-    List<GastosMensaisDTO> findTotaisPorMes(GastoDTO filter);
+    List<GastosMensaisDTO> findTotaisPorMes(GastoDTO filter, Integer ano);
     Page<Gasto> findAllByFilterPageable(GastoDTO filter, int page, int size);
 }

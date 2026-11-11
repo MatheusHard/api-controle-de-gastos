@@ -11,5 +11,6 @@ import lombok.Setter;
 @AllArgsConstructor
 public class DashBoardResquestDTO {
     private Integer userId;
+    private Integer ano;
     private Boolean deletado = false;
 }

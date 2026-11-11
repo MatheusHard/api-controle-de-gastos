@@ -52,8 +52,9 @@ public interface GastoRepository  extends JpaRepository<Gasto, Integer> {
             "FROM Gasto g " +
             "WHERE g.deletado = false " +
             "AND (:usuarioId IS NULL OR g.user.id = :usuarioId) " +
+            "AND YEAR(g.createdAt) = :ano " +
             "GROUP BY MONTH(g.createdAt) " +
             "ORDER BY MONTH(g.createdAt)")
-    List<GastosMensaisDTO> findTotaisPorMes(@Param("usuarioId") Integer usuarioId);
+    List<GastosMensaisDTO> findTotaisPorMes(@Param("usuarioId") Integer usuarioId, @Param("ano") int ano);
 
 }
