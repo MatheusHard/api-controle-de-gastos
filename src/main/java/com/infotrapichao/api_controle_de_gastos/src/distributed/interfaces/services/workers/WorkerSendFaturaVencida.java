@@ -10,6 +10,7 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
+import org.springframework.data.domain.Page;
 
 @Component
 public class WorkerSendFaturaVencida {
@@ -34,9 +35,15 @@ public class WorkerSendFaturaVencida {
         filter.setVencimento(LocalDateTime.now()); // Pegar apenas faturas que vencem hoje
         filter.setDeletado(false);
         filter.setPago(false);
-        var list = _gastoApplication.findAllByFilter(filter);
-        for (Gasto fatura : list) {
-            sendEmail(fatura);
+        Page<Gasto> page = _gastoApplication.findAllByFilter(filter, 0, 100);
+        while (true) {
+            for (Gasto fatura : page.getContent()) {
+                sendEmail(fatura);
+            }
+            if (!page.hasNext()) {
+                break;
+            }
+            page = _gastoApplication.findAllByFilter(filter, page.getNumber() + 1, 100);
         }
     }
 

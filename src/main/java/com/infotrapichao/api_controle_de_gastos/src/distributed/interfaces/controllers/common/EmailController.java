@@ -15,6 +15,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.io.ByteArrayOutputStream;
 import java.net.URI;
+import java.util.ArrayList;
+import java.util.List;
+import com.infotrapichao.api_controle_de_gastos.src.domain.models.common.Gasto;
 
 import static com.infotrapichao.api_controle_de_gastos.src.distributed.interfaces.core.utils.Utils.gerarGastosPdf;
 
@@ -37,11 +40,11 @@ public class EmailController {
         try {
             //Pegar o arquivo Pdf
             GastoDTO dto = GastoMapper.toGastoDTO(emailDTO.getFilters());
-            var gastos = _gastoApplication.findAllByFilter(dto);
+            List<Gasto> gastos = _gastoApplication.findAllByFilter(dto, 0, 10000).getContent();
             ByteArrayOutputStream outputStream = gerarGastosPdf(gastos);
             emailDTO.setFile(outputStream);
-            //send email
 
+            //send email
             _emailService.sendHtmlEmail(emailDTO);
         }catch (Exception e){
             return ResponseEntity.ok(new EmailResponseDTO(false,"Erro -> "+ e.getMessage()));

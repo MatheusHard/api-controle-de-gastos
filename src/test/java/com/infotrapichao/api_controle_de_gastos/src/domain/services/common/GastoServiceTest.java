@@ -10,13 +10,15 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.data.jpa.domain.Specification;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
 
 import java.math.BigDecimal;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -45,12 +47,13 @@ class GastoServiceTest {
     @Test
     void findAllByFilter_shouldDelegateToSpecificationSearch() {
         GastoDTO filter = new GastoDTO();
-        when(gastoRepository.findAll(any(Specification.class))).thenReturn(List.of(new Gasto()));
+        when(gastoRepository.findAll(any(Specification.class), any(Pageable.class)))
+                .thenReturn(new PageImpl<>(List.of(new Gasto())));
 
-        List<Gasto> gastos = gastoService.findAllByFilter(filter);
+        Page<Gasto> gastos = gastoService.findAllByFilter(filter, 0, 20);
 
-        assertEquals(1, gastos.size());
-        verify(gastoRepository).findAll(any(Specification.class));
+        assertEquals(1, gastos.getContent().size());
+        verify(gastoRepository).findAll(any(Specification.class), any(Pageable.class));
     }
 
     @Test

@@ -6,6 +6,7 @@ import com.infotrapichao.api_controle_de_gastos.src.distributed.interfaces.dtos.
 import com.infotrapichao.api_controle_de_gastos.src.distributed.interfaces.dtos.common.get.dashboard.TotaisMensaisResponse;
 import com.infotrapichao.api_controle_de_gastos.src.domain.contracts.services.common.IGastoService;
 import com.infotrapichao.api_controle_de_gastos.src.domain.models.common.Gasto;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
@@ -43,6 +44,21 @@ public class GastoApplication implements IGastoApplication {
     @Override
     public List<Gasto> findAllByFilter(GastoDTO filter) {
         return _gastoService.findAllByFilter(filter);
+    }
+
+    @Override
+    public Page<Gasto> findAllByFilter(GastoDTO filter, int page, int size) {
+        return _gastoService.findAllByFilter(filter, page, size);
+    }
+
+    @Override
+    public Page<Gasto> findAllByFilterPageable(GastoDTO filter, int page, int size) {
+        return _gastoService.findAllByFilterPageable(filter, page, size);
+    }
+
+    @Override
+    public BigDecimal sumValorByFilter(GastoDTO filter) {
+        return _gastoService.sumValorByFilter(filter);
     }
 
     @Override

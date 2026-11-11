@@ -12,6 +12,7 @@ import com.infotrapichao.api_controle_de_gastos.src.domain.models.security.User;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import org.springframework.data.domain.Page;
 
 public final class GastoMapper {
 
@@ -208,6 +209,16 @@ public final class GastoMapper {
                     }
                 })
                 .toList();
+    }
+
+    public static Page<GastoDTO> toGastoDTOPage(Page<Gasto> gastos) {
+        return gastos.map(gasto -> {
+            GastoDTO dto = toGastoDTO(gasto);
+            if (dto.getUser() != null) {
+                dto.getUser().setPassword(null);
+            }
+            return dto;
+        });
     }
 
     public static List<Gasto> toGastoList(List<GastoDTO> dtos) {

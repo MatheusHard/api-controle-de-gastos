@@ -1,8 +1,5 @@
 package com.infotrapichao.api_controle_de_gastos.src.distributed.interfaces.dtos.security.get;
 
-import com.infotrapichao.api_controle_de_gastos.src.domain.models.security.User;
-
-
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -12,9 +9,8 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class SessionDTO {
-
+public class SessionResponseDTO {
     private String login;
     private String token;
-    private User user;
+    private UserResponseDTO user;
 }

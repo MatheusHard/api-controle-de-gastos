@@ -3,7 +3,9 @@ package com.infotrapichao.api_controle_de_gastos.src.distributed.interfaces.mapp
 import com.infotrapichao.api_controle_de_gastos.src.distributed.interfaces.dtos.common.get.AgendaDePagamentoDTO;
 import com.infotrapichao.api_controle_de_gastos.src.distributed.interfaces.dtos.common.created.AgendaDePagamentoCreatedRequestDTO;
 import com.infotrapichao.api_controle_de_gastos.src.distributed.interfaces.dtos.common.get.AgendaDePagamentoRequestDTO;
+import com.infotrapichao.api_controle_de_gastos.src.distributed.interfaces.dtos.common.response.AgendaDePagamentoResponseDTO;
 import com.infotrapichao.api_controle_de_gastos.src.distributed.interfaces.dtos.common.updated.AgendaDePagamentoUpdatedRequestDTO;
+import com.infotrapichao.api_controle_de_gastos.src.distributed.interfaces.mappers.security.UserMapper;
 import com.infotrapichao.api_controle_de_gastos.src.domain.models.common.AgendaDePagamento;
 import com.infotrapichao.api_controle_de_gastos.src.domain.models.security.User;
 
@@ -26,6 +28,21 @@ public final class AgendaDePagamentoMapper {
                 entity.getUser(),
                 entity.getDeletado(),
                 entity.getGastos(),
+                null,
+                null
+        );
+    }
+
+    public static AgendaDePagamentoResponseDTO toResponseDTO(AgendaDePagamento entity) {
+        if (entity == null) return null;
+
+        User user = entity.getUser();
+        return new AgendaDePagamentoResponseDTO(
+                entity.getId(),
+                entity.getCreatedAt(),
+                entity.getUpdatedAt(),
+                user == null ? null : UserMapper.toUserResponseDTO(user),
+                entity.getDeletado(),
                 null,
                 null
         );
